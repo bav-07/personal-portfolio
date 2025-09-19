@@ -24,10 +24,6 @@ import { ContactSection } from "@/components/sections/contact-section";
 export default function Home() {
   return (
     <div className="relative min-h-screen overflow-x-hidden">
-      <div className="pointer-events-none absolute inset-x-0 top-[-180px] -z-10 flex justify-center">
-        <div className="h-[520px] w-[520px] rounded-full bg-cyan-400/20 blur-[160px]" />
-      </div>
-
       <main className="relative mx-auto flex w-full max-w-5xl flex-col gap-24 px-6 pb-24 pt-12 sm:px-10 lg:px-0">
         <SiteHeader profile={profile} navItems={navItems} />
 
