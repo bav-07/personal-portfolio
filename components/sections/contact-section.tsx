@@ -41,7 +41,7 @@ export function ContactSection({ heading, description, socialLinks, email }: Con
   return (
     <section
       id="contact"
-      className="space-y-8 rounded-3xl border border-white/10 bg-gradient-to-br from-white/10 via-white/[0.02] to-transparent p-10 text-center"
+      className="scroll-mt-32 space-y-8 rounded-3xl border border-white/10 bg-gradient-to-br from-white/10 via-white/[0.02] to-transparent p-10 text-center"
     >
       <div className="space-y-4">
         <h2 className="text-2xl font-semibold text-white">{heading}</h2>

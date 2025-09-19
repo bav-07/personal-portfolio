@@ -38,7 +38,7 @@ function SkillGroupCard({ group }: SkillGroupCardProps) {
 
 export function SkillsSection({ eyebrow, title, groups }: SkillsSectionProps) {
   return (
-    <section id="skills" className="space-y-8">
+    <section id="skills" className="scroll-mt-32 space-y-8">
       <SectionHeader eyebrow={eyebrow} title={title} />
       <div className="grid gap-6 sm:grid-cols-2">
         {groups.map((group) => (

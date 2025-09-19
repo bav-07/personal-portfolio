@@ -47,7 +47,7 @@ function ExperienceCard({ experience }: ExperienceCardProps) {
 
 export function ExperienceSection({ eyebrow, title, experiences }: ExperienceSectionProps) {
   return (
-    <section id="experience" className="space-y-8">
+    <section id="experience" className="scroll-mt-32 space-y-8">
       <SectionHeader eyebrow={eyebrow} title={title} />
       <div className="space-y-6">
         {experiences.map((experienceItem) => (

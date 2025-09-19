@@ -20,7 +20,9 @@ export function SiteHeader({ profile, navItems }: SiteHeaderProps) {
   const initials = getInitials(profile.name);
 
   return (
-    <header className="sticky top-6 z-20 flex items-center justify-between gap-6 rounded-full border border-white/10 bg-white/5 px-5 py-3 backdrop-blur">
+    <header
+      className="sticky top-4 z-50 flex items-center justify-between gap-6 rounded-full border border-white/10 bg-white/5 px-5 py-3 shadow-[0_20px_45px_-25px_rgba(56,189,248,0.55)] backdrop-blur"
+    >
       <div className="flex items-center gap-3">
         <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-sm font-semibold text-white">
           {initials}

@@ -62,7 +62,7 @@ function ProjectCard({ project }: ProjectCardProps) {
 
 export function ProjectsSection({ eyebrow, title, projects }: ProjectsSectionProps) {
   return (
-    <section id="projects" className="space-y-8">
+    <section id="projects" className="scroll-mt-32 space-y-8">
       <SectionHeader eyebrow={eyebrow} title={title} />
       <ul className="grid gap-6 md:grid-cols-2">
         {projects.map((project) => (
