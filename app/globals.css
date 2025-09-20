@@ -8,10 +8,17 @@
   --font-sans: "Sora", "Inter", "Helvetica Neue", Arial, sans-serif;
   --font-display: "Bricolage Grotesque", "Sora", "Inter", "Helvetica Neue", Arial, sans-serif;
   --font-mono: "IBM Plex Mono", "SFMono-Regular", "Menlo", monospace;
+  --background-gradient:
+    radial-gradient(circle at 12% 5%, rgba(255, 119, 214, 0.28), transparent 55%),
+    radial-gradient(circle at 88% -10%, rgba(59, 130, 246, 0.32), transparent 55%),
+    radial-gradient(circle at 45% 110%, rgba(34, 211, 238, 0.16), transparent 70%),
+    linear-gradient(180deg, #040014 0%, #05021a 45%, #06031f 100%);
 }
 
 html {
   scroll-behavior: smooth;
+  min-height: 100%;
+  background: var(--background-gradient);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -35,11 +42,7 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
-  background:
-    radial-gradient(circle at 12% 5%, rgba(255, 119, 214, 0.28), transparent 55%),
-    radial-gradient(circle at 88% -10%, rgba(59, 130, 246, 0.32), transparent 55%),
-    radial-gradient(circle at 45% 110%, rgba(34, 211, 238, 0.16), transparent 70%),
-    linear-gradient(180deg, #040014 0%, #05021a 45%, #06031f 100%);
+  background: var(--background-gradient);
   color: var(--foreground);
   font-family: var(--font-sans);
   letter-spacing: -0.01em;
@@ -78,8 +81,22 @@ body::after {
   background-position: 0 0, 0 0, 40px 40px;
   opacity: 0.35;
   mix-blend-mode: screen;
-  mask-image: radial-gradient(circle at 50% 32%, rgba(0, 0, 0, 0.82), transparent 72%);
-  -webkit-mask-image: radial-gradient(circle at 50% 32%, rgba(0, 0, 0, 0.82), transparent 72%);
+  mask-image: radial-gradient(
+    circle at 50% 32%,
+    rgba(0, 0, 0, 0.88) 0%,
+    rgba(0, 0, 0, 0.88) 65%,
+    rgba(0, 0, 0, 0.72) 110%,
+    rgba(0, 0, 0, 0.4) 160%,
+    transparent 200%
+  );
+  -webkit-mask-image: radial-gradient(
+    circle at 50% 32%,
+    rgba(0, 0, 0, 0.88) 0%,
+    rgba(0, 0, 0, 0.88) 65%,
+    rgba(0, 0, 0, 0.72) 110%,
+    rgba(0, 0, 0, 0.4) 160%,
+    transparent 200%
+  );
   z-index: -1;
 }
 
