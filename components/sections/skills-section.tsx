@@ -26,17 +26,17 @@ const sectionVariants = {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.75,
+      duration: 0.55,
       ease: easeOut,
       when: "beforeChildren",
-      staggerChildren: 0.12,
+      staggerChildren: 0.08,
     },
   },
 } as const;
 
 const cardVariants = {
   hidden: { opacity: 0, y: 24 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: easeOut } },
+  show: { opacity: 1, y: 0, transition: { duration: 0.38, ease: easeOut } },
 } as const;
 
 function SkillPill({ name }: SkillPillProps) {

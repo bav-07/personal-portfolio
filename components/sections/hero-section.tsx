@@ -27,17 +27,17 @@ const heroVariants = {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.8,
+      duration: 0.6,
       ease: easeOut,
       when: "beforeChildren",
-      staggerChildren: 0.12,
+      staggerChildren: 0.08,
     },
   },
 };
 
 const contentVariants = {
   hidden: { opacity: 0, y: 24 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.65, ease: easeOut } },
+  show: { opacity: 1, y: 0, transition: { duration: 0.45, ease: easeOut } },
 };
 
 const highlightVariants = {
@@ -46,25 +46,25 @@ const highlightVariants = {
     opacity: 1,
     y: 0,
     scale: 1,
-    transition: { duration: 0.6, ease: easeOut },
+    transition: { duration: 0.4, ease: easeOut },
   },
 };
 
 const buttonVariants = {
   hidden: { opacity: 0, y: 18 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: easeOut } },
+  show: { opacity: 1, y: 0, transition: { duration: 0.35, ease: easeOut } },
 };
 
 const badgeVariants = {
   hidden: { opacity: 0, y: 14 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: easeOut } },
+  show: { opacity: 1, y: 0, transition: { duration: 0.35, ease: easeOut } },
 };
 
 const highlightListVariants = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
-    transition: { delayChildren: 0.1, staggerChildren: 0.12 },
+    transition: { delayChildren: 0.05, staggerChildren: 0.08 },
   },
 };
 

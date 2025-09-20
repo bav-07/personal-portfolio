@@ -23,31 +23,31 @@ const sectionVariants = {
   show: {
     opacity: 1,
     scale: 1,
-    transition: { duration: 0.7, ease: easeOut, when: "beforeChildren", staggerChildren: 0.12 },
+    transition: { duration: 0.52, ease: easeOut, when: "beforeChildren", staggerChildren: 0.08 },
   },
 } as const;
 
 const contentVariants = {
   hidden: { opacity: 0, y: 24 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: easeOut } },
+  show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: easeOut } },
 } as const;
 
 const listVariants = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
-    transition: { staggerChildren: 0.08, delayChildren: 0.1 },
+    transition: { staggerChildren: 0.06, delayChildren: 0.06 },
   },
 } as const;
 
 const buttonVariants = {
   hidden: { opacity: 0, y: 18 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: easeOut } },
+  show: { opacity: 1, y: 0, transition: { duration: 0.35, ease: easeOut } },
 } as const;
 
 const linkVariants = {
   hidden: { opacity: 0, y: 16 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.45, ease: easeOut } },
+  show: { opacity: 1, y: 0, transition: { duration: 0.3, ease: easeOut } },
 } as const;
 
 function ContactLink({ href, label }: ContactLinkProps) {

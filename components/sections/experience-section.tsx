@@ -26,22 +26,22 @@ const sectionVariants = {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.8,
+      duration: 0.6,
       ease: easeOut,
       when: "beforeChildren",
-      staggerChildren: 0.14,
+      staggerChildren: 0.1,
     },
   },
 } as const;
 
 const cardVariants = {
   hidden: { opacity: 0, y: 26 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.65, ease: easeOut } },
+  show: { opacity: 1, y: 0, transition: { duration: 0.45, ease: easeOut } },
 } as const;
 
 const highlightVariants = {
   hidden: { opacity: 0, y: 18 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.45, ease: easeOut } },
+  show: { opacity: 1, y: 0, transition: { duration: 0.32, ease: easeOut } },
 } as const;
 
 function ExperienceHighlight({ text }: ExperienceHighlightProps) {
