@@ -51,13 +51,13 @@ export type HeroAction = {
 };
 
 export const profile: Profile = {
-  name: "Taylor Morgan",
+  name: "Bavaharsan Nagarajah",
   title: "Software Engineer",
-  location: "Based in Denver, CO",
+  location: "Based in London, UK",
   summary:
     "I craft resilient web platforms that balance thoughtful design with reliable engineering. With a focus on TypeScript, modern React patterns, and cloud-native tooling, I deliver interfaces that feel effortless to use.",
   availability: "Available for full-time roles and select freelance collaborations.",
-  email: "hello@taylormorgan.dev",
+  email: "bavaharsan.nagarajah@gmail.com",
 };
 
 export const navItems: NavItem[] = [
@@ -95,7 +95,7 @@ export const aboutContent = [
 export const experiences: Experience[] = [
   {
     role: "Software Engineer",
-    company: "Lumina Systems",
+    company: "Sky",
     period: "2023 — Present",
     description:
       "Building design systems and shipping new product surfaces for a SaaS analytics platform serving over 40k active users.",
@@ -105,9 +105,9 @@ export const experiences: Experience[] = [
     ],
   },
   {
-    role: "Software Engineering Intern",
-    company: "Lightwave Labs",
-    period: "2022 — 2023",
+    role: "Software Engineering Associate",
+    company: "Lloyds Banking Group | Bright Network",
+    period: "2023",
     description:
       "Prototyped internal tooling and automation workflows that accelerated deployment feedback loops for the engineering team.",
     highlights: [
@@ -173,9 +173,9 @@ export const skillGroups: SkillGroup[] = [
 ];
 
 export const socialLinks: SocialLink[] = [
-  { label: "LinkedIn", href: "https://linkedin.com/in/taylormorgan" },
-  { label: "GitHub", href: "https://github.com/taylormorgan" },
-  { label: "Resume", href: "https://taylormorgan.dev/resume.pdf" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/bavaharsan-nagarajah/" },
+  { label: "GitHub", href: "https://github.com/bav-07" },
+  { label: "Resume", href: "https://bavaharsan.dev/resume.pdf" },
 ];
 
 export const sectionMeta = {

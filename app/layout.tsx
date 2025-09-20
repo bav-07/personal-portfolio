@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Taylor Morgan | Software Engineer Portfolio",
+  title: "Bavaharsan Nagarajah | Software Engineer Portfolio",
   description:
-    "Portfolio of Taylor Morgan, a software engineer crafting modern web experiences with TypeScript, React, and cloud-native tooling.",
+    "Portfolio of Bavaharsan Nagarajah, a software engineer crafting modern web experiences with TypeScript, React, and cloud-native tooling.",
   keywords: [
     "Software Engineer",
     "Portfolio",
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     "Frontend",
     "Product Engineer",
   ],
-  authors: [{ name: "Taylor Morgan" }],
+  authors: [{ name: "Bavaharsan Nagarajah" }],
 };
 
 export default function RootLayout({
