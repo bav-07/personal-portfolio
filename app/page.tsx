@@ -25,7 +25,7 @@ export default function Home() {
   return (
     <div className="relative min-h-screen overflow-x-hidden">
       <main
-        className="relative isolate mx-auto flex w-full max-w-5xl flex-col gap-24 px-6 pb-24 pt-12 sm:px-10 lg:px-0 before:absolute before:-top-40 before:left-1/2 before:h-[520px] before:w-[520px] before:-translate-x-1/2 before:rounded-full before:bg-[radial-gradient(circle_at_top,_rgba(59,130,246,0.18),_transparent_65%)] before:opacity-70 before:blur-[110px] before:content-[''] after:pointer-events-none after:absolute after:-top-24 after:right-[-160px] after:h-[420px] after:w-[420px] after:rounded-full after:bg-[radial-gradient(circle_at_center,_rgba(45,212,191,0.14),_transparent_70%)] after:opacity-70 after:blur-3xl after:content-['']"
+        className="relative isolate mx-auto flex w-full max-w-5xl flex-col gap-24 px-6 pb-24 pt-12 sm:px-10 lg:px-0 before:absolute before:-top-40 before:left-1/2 before:h-[520px] before:w-[520px] before:-translate-x-1/2 before:rounded-full before:bg-[radial-gradient(circle_at_top,_rgba(244,114,182,0.22),_transparent_60%)] before:opacity-80 before:blur-[120px] before:content-[''] after:pointer-events-none after:absolute after:-top-24 after:right-[-160px] after:h-[420px] after:w-[420px] after:rounded-full after:bg-[radial-gradient(circle_at_center,_rgba(56,189,248,0.18),_transparent_68%)] after:opacity-75 after:blur-3xl after:content-['']"
       >
         <SiteHeader profile={profile} navItems={navItems} />
 

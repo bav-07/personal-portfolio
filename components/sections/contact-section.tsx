@@ -1,3 +1,6 @@
+'use client';
+
+import { motion } from "framer-motion";
 import type { SocialLink } from "@/data/portfolio";
 
 type ContactSectionProps = {
@@ -13,10 +16,45 @@ type ContactButtonProps = {
   email: string;
 };
 
+const easeOut: [number, number, number, number] = [0.16, 1, 0.3, 1];
+
+const sectionVariants = {
+  hidden: { opacity: 0, scale: 0.94 },
+  show: {
+    opacity: 1,
+    scale: 1,
+    transition: { duration: 0.7, ease: easeOut, when: "beforeChildren", staggerChildren: 0.12 },
+  },
+} as const;
+
+const contentVariants = {
+  hidden: { opacity: 0, y: 24 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: easeOut } },
+} as const;
+
+const listVariants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: { staggerChildren: 0.08, delayChildren: 0.1 },
+  },
+} as const;
+
+const buttonVariants = {
+  hidden: { opacity: 0, y: 18 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: easeOut } },
+} as const;
+
+const linkVariants = {
+  hidden: { opacity: 0, y: 16 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.45, ease: easeOut } },
+} as const;
+
 function ContactLink({ href, label }: ContactLinkProps) {
   return (
-    <a
-      className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-white/10 bg-white/[0.06] px-4 py-2 text-sm text-slate-200 transition-colors duration-300 hover:border-white/35 hover:text-white"
+    <motion.a
+      variants={linkVariants}
+      className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-white/25 bg-white/10 px-4 py-2 text-sm text-fuchsia-100 transition-colors duration-300 hover:border-white/45 hover:text-white"
       href={href}
       target="_blank"
       rel="noreferrer"
@@ -24,51 +62,65 @@ function ContactLink({ href, label }: ContactLinkProps) {
       <span className="relative z-10">{label}</span>
       <span
         aria-hidden
-        className="pointer-events-none absolute inset-0 bg-gradient-to-r from-white/15 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+        className="pointer-events-none absolute inset-0 bg-gradient-to-r from-fuchsia-200/35 via-transparent to-sky-200/25 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
       />
-    </a>
+    </motion.a>
   );
 }
 
 function ContactButton({ email }: ContactButtonProps) {
   return (
-    <a
-      className="relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full border border-cyan-400/40 bg-gradient-to-r from-cyan-400/25 via-transparent to-sky-500/25 px-6 py-3 text-sm font-medium text-cyan-100 shadow-[0_40px_100px_-60px_rgba(56,189,248,0.75)] transition-all duration-500 hover:border-cyan-300/70 hover:text-white before:absolute before:inset-0 before:-z-10 before:bg-gradient-to-r before:from-cyan-400/40 before:via-cyan-200/30 before:to-sky-500/40 before:opacity-0 before:transition-opacity before:duration-500 before:content-[''] hover:before:opacity-100"
+    <motion.a
+      variants={buttonVariants}
+      className="relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full border border-white/40 bg-gradient-to-r from-fuchsia-400/35 via-sky-400/25 to-emerald-400/35 px-6 py-3 text-sm font-medium text-white shadow-[0_45px_110px_-65px_rgba(244,114,182,0.8)] transition-all duration-500 hover:border-white/60 hover:text-white before:absolute before:inset-0 before:-z-10 before:bg-gradient-to-r before:from-fuchsia-400/45 before:via-sky-300/35 before:to-emerald-400/45 before:opacity-0 before:transition-opacity before:duration-500 before:content-[''] hover:before:opacity-100"
       href={`mailto:${email}`}
     >
       <span className="relative z-10">{email}</span>
-    </a>
+    </motion.a>
   );
 }
 
 export function ContactSection({ heading, description, socialLinks, email }: ContactSectionProps) {
   return (
-    <section id="contact" className="scroll-mt-32">
-      <div className="relative isolate overflow-hidden rounded-[2.75rem] border border-cyan-400/30 bg-gradient-to-br from-cyan-400/20 via-[#050b19]/80 to-transparent px-10 py-12 text-center shadow-[0_65px_130px_-80px_rgba(56,189,248,0.8)]">
+    <motion.section
+      id="contact"
+      className="scroll-mt-32"
+      variants={sectionVariants}
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, amount: 0.3 }}
+    >
+      <motion.div
+        variants={contentVariants}
+        className="relative isolate overflow-hidden rounded-[2.75rem] border border-white/35 bg-gradient-to-br from-fuchsia-400/30 via-[#060a21]/85 to-transparent px-10 py-12 text-center shadow-[0_80px_160px_-90px_rgba(244,114,182,0.8)]"
+      >
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0 -z-10 bg-grid-soft opacity-25"
         />
         <div
           aria-hidden
-          className="pointer-events-none absolute -top-24 left-1/2 -z-20 h-72 w-72 -translate-x-1/2 rounded-full bg-[radial-gradient(circle_at_top,_rgba(59,130,246,0.35),_transparent_70%)] opacity-80 blur-3xl"
+          className="pointer-events-none absolute -top-24 left-1/2 -z-20 h-72 w-72 -translate-x-1/2 rounded-full bg-[radial-gradient(circle_at_top,_rgba(244,114,182,0.4),_transparent_70%)] opacity-90 blur-3xl"
         />
 
-        <div className="relative mx-auto max-w-2xl space-y-6">
-          <div className="space-y-3">
-            <h2 className="text-2xl font-semibold tracking-tight text-white sm:text-3xl">{heading}</h2>
-            <p className="text-sm leading-relaxed text-slate-200/90">{description}</p>
-          </div>
+        <motion.div variants={contentVariants} className="relative mx-auto max-w-2xl space-y-6">
+          <motion.div variants={contentVariants} className="space-y-3">
+            <h2 className="font-display text-2xl font-semibold tracking-tight text-white sm:text-3xl">{heading}</h2>
+            <p className="text-sm leading-relaxed text-slate-100/85">{description}</p>
+          </motion.div>
 
-          <div className="flex flex-wrap justify-center gap-3 text-sm text-slate-200">
+          <motion.div
+            variants={listVariants}
+            className="flex flex-wrap justify-center gap-3 text-sm text-fuchsia-100"
+          >
             {socialLinks.map((link) => (
               <ContactLink key={link.href} {...link} />
             ))}
-          </div>
+          </motion.div>
 
           <ContactButton email={email} />
-        </div>
-      </div>
-    </section>
+        </motion.div>
+      </motion.div>
+    </motion.section>
   );
 }

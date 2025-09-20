@@ -1,5 +1,10 @@
+'use client';
+
+import { motion } from "framer-motion";
 import type { SkillGroup } from "@/data/portfolio";
 import { SectionHeader } from "@/components/common/section-header";
+
+const easeOut: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 type SkillsSectionProps = {
   eyebrow: string;
@@ -15,58 +20,96 @@ type SkillPillProps = {
   name: string;
 };
 
+const sectionVariants = {
+  hidden: { opacity: 0, y: 36 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.75,
+      ease: easeOut,
+      when: "beforeChildren",
+      staggerChildren: 0.12,
+    },
+  },
+} as const;
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 24 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: easeOut } },
+} as const;
+
 function SkillPill({ name }: SkillPillProps) {
   return (
-    <li className="relative overflow-hidden rounded-full border border-white/10 bg-white/[0.05] px-3 py-1 text-sm text-slate-200">
+    <motion.li
+      variants={cardVariants}
+      className="relative overflow-hidden rounded-full border border-white/20 bg-white/10 px-3 py-1 text-sm text-fuchsia-100"
+    >
       <span
         aria-hidden
-        className="pointer-events-none absolute inset-0 bg-gradient-to-r from-white/20 via-transparent to-transparent opacity-60"
+        className="pointer-events-none absolute inset-0 bg-gradient-to-r from-fuchsia-200/35 via-transparent to-sky-200/25 opacity-70"
       />
       <span className="relative z-10">{name}</span>
-    </li>
+    </motion.li>
   );
 }
 
 function SkillGroupCard({ group }: SkillGroupCardProps) {
   return (
-    <div className="relative overflow-hidden rounded-[2.1rem] border border-white/10 bg-white/[0.03] p-7 shadow-[0_40px_80px_-60px_rgba(56,189,248,0.55)]">
+    <motion.div
+      variants={cardVariants}
+      className="relative overflow-hidden rounded-[2.1rem] border border-white/20 bg-white/[0.08] p-7 shadow-[0_55px_110px_-75px_rgba(244,114,182,0.6)]"
+    >
       <span
         aria-hidden
-        className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/12 via-transparent to-transparent opacity-60"
+        className="pointer-events-none absolute inset-0 bg-gradient-to-br from-fuchsia-200/35 via-transparent to-sky-200/25 opacity-70"
       />
-      <h3 className="relative z-10 text-base font-medium text-white">{group.title}</h3>
-      <ul className="relative z-10 mt-4 flex flex-wrap gap-2">
+      <h3 className="relative z-10 font-display text-base font-semibold text-white">{group.title}</h3>
+      <motion.ul
+        variants={cardVariants}
+        className="relative z-10 mt-4 flex flex-wrap gap-2"
+      >
         {group.skills.map((skill) => (
           <SkillPill key={skill} name={skill} />
         ))}
-      </ul>
-    </div>
+      </motion.ul>
+    </motion.div>
   );
 }
 
 export function SkillsSection({ eyebrow, title, groups }: SkillsSectionProps) {
   return (
-    <section id="skills" className="scroll-mt-32">
-      <div className="relative isolate overflow-hidden rounded-[2.5rem] border border-white/15 bg-white/[0.02] p-8 shadow-[0_50px_110px_-80px_rgba(56,189,248,0.55)] backdrop-blur md:p-10">
+    <motion.section
+      id="skills"
+      className="scroll-mt-32"
+      variants={sectionVariants}
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, amount: 0.3 }}
+    >
+      <div className="relative isolate overflow-hidden rounded-[2.5rem] border border-white/20 bg-gradient-to-br from-white/16 via-white/[0.05] to-white/[0.02] p-8 shadow-[0_65px_130px_-85px_rgba(244,114,182,0.6)] backdrop-blur md:p-10">
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 -z-10 bg-grid-soft opacity-30"
+          className="pointer-events-none absolute inset-0 -z-10 bg-grid-soft opacity-35"
         />
         <div
           aria-hidden
-          className="pointer-events-none absolute -left-28 bottom-0 -z-20 h-64 w-64 rounded-full bg-[radial-gradient(circle_at_bottom,_rgba(129,140,248,0.24),_transparent_70%)] opacity-65 blur-[120px]"
+          className="pointer-events-none absolute -left-28 bottom-0 -z-20 h-64 w-64 rounded-full bg-[radial-gradient(circle_at_bottom,_rgba(56,189,248,0.26),_transparent_70%)] opacity-75 blur-[130px]"
         />
 
-        <div className="relative space-y-10">
+        <motion.div variants={cardVariants} className="relative space-y-10">
           <SectionHeader eyebrow={eyebrow} title={title} />
 
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <motion.div
+            variants={cardVariants}
+            className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
+          >
             {groups.map((group) => (
               <SkillGroupCard key={group.title} group={group} />
             ))}
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 }
