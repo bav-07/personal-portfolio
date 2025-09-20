@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import CursorGlow from "@/components/common/cursor-glow";
 
 export const metadata: Metadata = {
   title: "Taylor Morgan | Software Engineer Portfolio",
@@ -24,7 +25,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="antialiased font-sans">{children}</body>
+      <body className="antialiased font-sans">
+        <CursorGlow />
+        {children}
+      </body>
     </html>
   );
 }

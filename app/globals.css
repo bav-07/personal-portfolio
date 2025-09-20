@@ -93,6 +93,17 @@ a {
   color: #05021a;
 }
 
+@media (pointer: fine) {
+  body,
+  button,
+  a,
+  input,
+  textarea,
+  select {
+    cursor: none;
+  }
+}
+
 @layer utilities {
   .bg-grid-soft {
     background-image:
