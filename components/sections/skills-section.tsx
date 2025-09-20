@@ -87,11 +87,7 @@ export function SkillsSection({ eyebrow, title, groups }: SkillsSectionProps) {
       whileInView="show"
       viewport={{ once: true, amount: 0.3 }}
     >
-      <div className="relative isolate overflow-hidden rounded-[2.5rem] border border-white/20 bg-gradient-to-br from-white/16 via-white/[0.05] to-white/[0.02] p-8 shadow-[0_65px_130px_-85px_rgba(244,114,182,0.6)] backdrop-blur md:p-10">
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 -z-10 bg-grid-soft opacity-35"
-        />
+      <div className="relative isolate overflow-hidden rounded-[2.5rem] border border-white/20 bg-gradient-to-br from-white/8 via-white/[0.02] to-white/[0.01] p-8 shadow-[0_65px_130px_-85px_rgba(244,114,182,0.6)] backdrop-blur-xs md:p-10">
         <div
           aria-hidden
           className="pointer-events-none absolute -left-28 bottom-0 -z-20 h-64 w-64 rounded-full bg-[radial-gradient(circle_at_bottom,_rgba(56,189,248,0.26),_transparent_70%)] opacity-75 blur-[130px]"

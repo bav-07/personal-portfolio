@@ -108,11 +108,7 @@ export function ExperienceSection({ eyebrow, title, experiences }: ExperienceSec
       whileInView="show"
       viewport={{ once: true, amount: 0.3 }}
     >
-      <div className="relative isolate overflow-hidden rounded-[2.5rem] border border-white/20 bg-gradient-to-br from-white/16 via-white/[0.05] to-white/[0.02] p-8 shadow-[0_65px_130px_-85px_rgba(244,114,182,0.65)] backdrop-blur md:p-10">
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 -z-10 bg-grid-soft opacity-35"
-        />
+      <div className="relative isolate overflow-hidden rounded-[2.5rem] border border-white/20 bg-gradient-to-br from-white/8 via-white/[0.02] to-white/[0.01] p-8 shadow-[0_65px_130px_-85px_rgba(244,114,182,0.65)] backdrop-blur-xs md:p-10">
         <div
           aria-hidden
           className="pointer-events-none absolute -left-32 top-10 -z-20 h-72 w-72 rounded-full bg-[radial-gradient(circle_at_center,_rgba(56,189,248,0.28),_transparent_70%)] opacity-75 blur-[120px]"

@@ -24,8 +24,8 @@ export function SiteHeader({ profile, navItems }: SiteHeaderProps) {
   const initials = getInitials(profile.name);
 
   return (
-    <header className="sticky top-4 z-50">
-      <div className="group relative isolate flex items-center justify-between gap-6 overflow-hidden rounded-full border border-white/25 bg-white/10 px-6 py-3 shadow-[0_55px_110px_-65px_rgba(244,114,182,0.75)] backdrop-blur">
+    <header className="fixed top-0 left-0 right-0 z-50 w-full pt-4">
+      <div className="relative isolate mx-auto flex w-full max-w-5xl items-center justify-between gap-6 overflow-hidden rounded-full border border-white/25 bg-white/10 px-6 py-3 shadow-[0_55px_110px_-65px_rgba(244,114,182,0.75)] backdrop-blur sm:mx-6 lg:mx-auto">
         <span
           aria-hidden
           className="pointer-events-none absolute inset-0 -z-20 bg-[radial-gradient(circle_at_top,_rgba(244,114,182,0.45),_transparent_65%)] opacity-75 transition-opacity duration-700 group-hover:opacity-95"
@@ -36,8 +36,8 @@ export function SiteHeader({ profile, navItems }: SiteHeaderProps) {
         />
 
         <div className="flex items-center gap-4">
-          <div className="relative flex h-11 w-11 items-center justify-center overflow-hidden rounded-full border border-white/15 bg-white/10 text-sm font-semibold text-white shadow-[0_25px_55px_-35px_rgba(56,189,248,0.9)] before:absolute before:inset-[1.5px] before:rounded-full before:bg-[#060a18]/85 before:opacity-90 before:backdrop-blur before:content-[''] after:absolute after:inset-0 after:bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.35),transparent_70%)] after:opacity-60 after:content-['']">
-            <span className="relative z-10 text-xs tracking-[0.2em] text-slate-100">{initials}</span>
+          <div className="flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-sm font-semibold text-white">
+            <span className="text-xs tracking-[0.2em] text-slate-100">{initials}</span>
           </div>
           <div className="hidden text-sm leading-tight text-fuchsia-100/80 sm:block">
             <p className="font-display text-base font-semibold text-white">{profile.name}</p>
@@ -52,7 +52,7 @@ export function SiteHeader({ profile, navItems }: SiteHeaderProps) {
         </nav>
 
         <a
-          className="relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-white/35 bg-gradient-to-r from-fuchsia-400/25 via-transparent to-sky-400/25 px-5 py-2 text-sm font-medium text-white shadow-[0_30px_70px_-45px_rgba(244,114,182,0.75)] transition-all duration-500 hover:border-white/55 hover:text-white before:absolute before:inset-0 before:-z-10 before:bg-gradient-to-r before:from-fuchsia-400/45 before:via-sky-300/25 before:to-emerald-400/35 before:opacity-0 before:transition-opacity before:duration-500 before:content-[''] hover:before:opacity-100"
+          className="relative inline-flex items-center gap-2 rounded-full border border-white/35 bg-gradient-to-r from-fuchsia-400/25 via-transparent to-sky-400/25 px-5 py-2 text-sm font-medium text-white transition-all duration-500 hover:border-white/55 hover:text-white"
           href={`mailto:${profile.email}`}
         >
           <span className="relative">Let's talk</span>

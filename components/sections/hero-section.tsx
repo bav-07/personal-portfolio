@@ -70,9 +70,9 @@ const highlightListVariants = {
 
 const actionStyles: Record<HeroAction["variant"], string> = {
   primary:
-    "relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-white/30 bg-gradient-to-r from-sky-400/70 via-fuchsia-500/70 to-emerald-400/70 px-6 py-2 text-sm font-medium text-white shadow-[0_30px_80px_-40px_rgba(244,114,182,0.9)] transition-all duration-400 hover:border-white/60 hover:shadow-[0_40px_90px_-35px_rgba(56,189,248,0.8)] before:absolute before:inset-0 before:-z-10 before:bg-gradient-to-r before:from-white/30 before:via-white/10 before:to-white/30 before:opacity-0 before:transition-opacity before:duration-300 before:content-[''] hover:before:opacity-100",
+    "relative inline-flex items-center gap-2 rounded-full border border-white/30 bg-gradient-to-r from-sky-400/70 via-fuchsia-500/70 to-emerald-400/70 px-6 py-2 text-sm font-medium text-white shadow-[0_30px_80px_-40px_rgba(244,114,182,0.9)] transition-all duration-400 hover:border-white/60 hover:shadow-[0_40px_90px_-35px_rgba(56,189,248,0.8)]",
   ghost:
-    "relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-white/25 bg-white/5 px-6 py-2 text-sm font-medium text-slate-100 transition-all duration-400 hover:border-white/45 hover:bg-white/10 hover:text-white before:absolute before:inset-0 before:-z-10 before:bg-gradient-to-r before:from-white/20 before:via-transparent before:to-white/20 before:opacity-0 before:transition-opacity before:duration-300 before:content-[''] hover:before:opacity-90",
+    "relative inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/5 px-6 py-2 text-sm font-medium text-slate-100 transition-all duration-400 hover:border-white/45 hover:bg-white/10 hover:text-white",
 };
 
 function HeroActionButton({ action }: HeroActionButtonProps) {
@@ -100,10 +100,6 @@ function HeroHighlightItem({ highlight }: HeroHighlightProps) {
         aria-hidden
         className="pointer-events-none absolute inset-0 bg-gradient-to-br from-fuchsia-200/40 via-transparent to-sky-200/20 opacity-70"
       />
-      <span
-        aria-hidden
-        className="pointer-events-none absolute inset-px rounded-[1.35rem] border border-white/40 opacity-60"
-      />
       <div className="relative z-10 space-y-1">
         <dt className="text-xs uppercase tracking-[0.42em] text-fuchsia-100/80">
           {highlight.label}
@@ -125,7 +121,7 @@ function HeroAvatar({ name }: HeroAvatarProps) {
 
   return (
     <motion.div variants={contentVariants} className="relative flex h-[15rem] w-[15rem] items-center justify-center md:mr-6">
-      <div className="relative isolate flex h-full w-full items-center justify-center overflow-hidden rounded-[3.5rem] border border-white/25 bg-gradient-to-br from-white/20 via-white/6 to-transparent shadow-[0_75px_140px_-80px_rgba(244,114,182,0.85)] before:absolute before:inset-0 before:-z-10 before:bg-[radial-gradient(circle_at_30%_25%,rgba(244,114,182,0.45),transparent_72%)] before:opacity-80 before:content-[''] after:pointer-events-none after:absolute after:-inset-[22%] after:-z-20 after:rounded-full after:border after:border-fuchsia-300/40 after:opacity-40 after:content-['']">
+      <div className="relative flex h-full w-full items-center justify-center overflow-hidden rounded-[3.5rem] border border-white/25 bg-gradient-to-br from-white/20 via-white/6 to-transparent shadow-[0_75px_140px_-80px_rgba(244,114,182,0.85)]">
         <span className="relative flex h-[85%] w-[85%] items-center justify-center rounded-[3rem] bg-[#070a1d]/90 font-display text-4xl font-semibold tracking-[0.4em] text-white">
           {initials}
         </span>
@@ -150,10 +146,6 @@ export function HeroSection({ profile, highlights, actions, headline }: HeroSect
       viewport={{ once: true, amount: 0.35 }}
       className="relative isolate overflow-hidden rounded-[2.75rem] border border-white/20 bg-gradient-to-br from-white/20 via-white/[0.06] to-white/[0.02] px-8 py-12 shadow-[0_80px_160px_-90px_rgba(244,114,182,0.8)] md:px-12 md:py-14"
     >
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 -z-10 bg-grid-soft opacity-45 mask-fade-b"
-      />
       <div
         aria-hidden
         className="pointer-events-none absolute -right-36 top-12 -z-20 h-[420px] w-[420px] rounded-full bg-[radial-gradient(circle_at_top,_rgba(244,114,182,0.32),_transparent_68%)] opacity-85 blur-3xl"

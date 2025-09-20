@@ -96,10 +96,6 @@ export function ContactSection({ heading, description, socialLinks, email }: Con
       >
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 -z-10 bg-grid-soft opacity-25"
-        />
-        <div
-          aria-hidden
           className="pointer-events-none absolute -top-24 left-1/2 -z-20 h-72 w-72 -translate-x-1/2 rounded-full bg-[radial-gradient(circle_at_top,_rgba(244,114,182,0.4),_transparent_70%)] opacity-90 blur-3xl"
         />
 

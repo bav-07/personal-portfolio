@@ -40,12 +40,8 @@ export function AboutSection({ eyebrow, title, paragraphs }: AboutSectionProps) 
       whileInView="show"
       viewport={{ once: true, amount: 0.3 }}
       id="about"
-      className="relative isolate scroll-mt-32 overflow-hidden rounded-[2.5rem] border border-white/20 bg-gradient-to-br from-white/18 via-white/[0.05] to-white/[0.02] p-8 shadow-[0_70px_120px_-80px_rgba(244,114,182,0.65)] backdrop-blur md:p-10"
+      className="relative isolate scroll-mt-32 overflow-hidden rounded-[2.5rem] border border-white/20 bg-gradient-to-br from-white/8 via-white/[0.02] to-white/[0.01] p-8 shadow-[0_70px_120px_-80px_rgba(244,114,182,0.65)] backdrop-blur-xs md:p-10"
     >
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 -z-10 bg-grid-soft opacity-35"
-      />
       <div
         aria-hidden
         className="pointer-events-none absolute -right-40 top-0 -z-20 h-72 w-72 rounded-full bg-[radial-gradient(circle_at_top,_rgba(244,114,182,0.32),_transparent_70%)] opacity-75 blur-[120px]"
@@ -60,10 +56,6 @@ export function AboutSection({ eyebrow, title, paragraphs }: AboutSectionProps) 
               variants={cardVariants}
               className="relative overflow-hidden rounded-[2.3rem] border border-white/25 bg-gradient-to-br from-white/20 via-white/5 to-transparent p-6 text-base leading-relaxed text-slate-100 shadow-[0_55px_110px_-70px_rgba(244,114,182,0.6)]"
             >
-              <span
-                aria-hidden
-                className="pointer-events-none absolute inset-px rounded-[2rem] border border-white/40 opacity-60"
-              />
               <p className="relative z-10 text-slate-50/95">{leadParagraph}</p>
             </motion.article>
           ) : null}
