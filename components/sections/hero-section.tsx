@@ -70,7 +70,7 @@ export function HeroSection({ profile, highlights, actions, headline }: HeroSect
   );
 
   return (
-    <section className="grid gap-12 md:grid-cols-[minmax(0,1fr)_auto] md:items-center">
+    <section id="hero" className="grid gap-12 md:grid-cols-[minmax(0,1fr)_auto] md:items-center">
       <div className="space-y-7">
         <p className="text-xs uppercase tracking-[0.4em] text-slate-400">
           {profile.title}
