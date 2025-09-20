@@ -45,6 +45,25 @@ const CursorGlow = () => {
   }, []);
 
   useEffect(() => {
+    const body = document.body;
+    const className = "has-custom-cursor";
+
+    if (!body) {
+      return undefined;
+    }
+
+    if (isFinePointer) {
+      body.classList.add(className);
+    } else {
+      body.classList.remove(className);
+    }
+
+    return () => {
+      body.classList.remove(className);
+    };
+  }, [isFinePointer]);
+
+  useEffect(() => {
     if (!isFinePointer) {
       setIsVisible(false);
       return;

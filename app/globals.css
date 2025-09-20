@@ -94,12 +94,12 @@ a {
 }
 
 @media (pointer: fine) {
-  body,
-  button,
-  a,
-  input,
-  textarea,
-  select {
+  body.has-custom-cursor,
+  body.has-custom-cursor button,
+  body.has-custom-cursor a,
+  body.has-custom-cursor input,
+  body.has-custom-cursor textarea,
+  body.has-custom-cursor select {
     cursor: none;
   }
 }
