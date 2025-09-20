@@ -21,22 +21,22 @@ type SkillPillProps = {
 };
 
 const sectionVariants = {
-  hidden: { opacity: 0, y: 36 },
+  hidden: { opacity: 0, y: 28 },
   show: {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.55,
+      duration: 0.33,
       ease: easeOut,
       when: "beforeChildren",
-      staggerChildren: 0.08,
+      staggerChildren: 0.05,
     },
   },
 } as const;
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 24 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.38, ease: easeOut } },
+  hidden: { opacity: 0, y: 18 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.22, ease: easeOut } },
 } as const;
 
 function SkillPill({ name }: SkillPillProps) {

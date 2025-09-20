@@ -22,49 +22,49 @@ type HeroHighlightProps = {
 };
 
 const heroVariants = {
-  hidden: { opacity: 0, y: 40 },
+  hidden: { opacity: 0, y: 32 },
   show: {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.6,
+      duration: 0.34,
       ease: easeOut,
       when: "beforeChildren",
-      staggerChildren: 0.08,
+      staggerChildren: 0.05,
     },
   },
 };
 
 const contentVariants = {
-  hidden: { opacity: 0, y: 24 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.45, ease: easeOut } },
+  hidden: { opacity: 0, y: 18 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.26, ease: easeOut } },
 };
 
 const highlightVariants = {
-  hidden: { opacity: 0, y: 26, scale: 0.95 },
+  hidden: { opacity: 0, y: 18, scale: 0.97 },
   show: {
     opacity: 1,
     y: 0,
     scale: 1,
-    transition: { duration: 0.4, ease: easeOut },
+    transition: { duration: 0.24, ease: easeOut },
   },
 };
 
 const buttonVariants = {
-  hidden: { opacity: 0, y: 18 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.35, ease: easeOut } },
+  hidden: { opacity: 0, y: 14 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.2, ease: easeOut } },
 };
 
 const badgeVariants = {
-  hidden: { opacity: 0, y: 14 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.35, ease: easeOut } },
+  hidden: { opacity: 0, y: 12 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.2, ease: easeOut } },
 };
 
 const highlightListVariants = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
-    transition: { delayChildren: 0.05, staggerChildren: 0.08 },
+    transition: { delayChildren: 0.02, staggerChildren: 0.05 },
   },
 };
 

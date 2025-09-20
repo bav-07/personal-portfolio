@@ -71,13 +71,15 @@ body::after {
   inset: 0;
   pointer-events: none;
   background-image:
-    linear-gradient(0deg, rgba(148, 163, 184, 0.14) 1px, transparent 0),
-    linear-gradient(90deg, rgba(148, 163, 184, 0.14) 1px, transparent 0);
-  background-size: 110px 110px;
-  opacity: 0.6;
+    linear-gradient(0deg, rgba(210, 218, 255, 0.3) 1.35px, transparent 0),
+    linear-gradient(90deg, rgba(210, 218, 255, 0.3) 1.35px, transparent 0),
+    radial-gradient(circle, rgba(148, 163, 184, 0.28) 1px, transparent 0);
+  background-size: 80px 80px, 80px 80px, 80px 80px;
+  background-position: 0 0, 0 0, 40px 40px;
+  opacity: 0.85;
   mix-blend-mode: screen;
-  mask-image: radial-gradient(circle at 50% 30%, rgba(0, 0, 0, 0.75), transparent 78%);
-  -webkit-mask-image: radial-gradient(circle at 50% 30%, rgba(0, 0, 0, 0.75), transparent 78%);
+  mask-image: radial-gradient(circle at 50% 32%, rgba(0, 0, 0, 0.82), transparent 72%);
+  -webkit-mask-image: radial-gradient(circle at 50% 32%, rgba(0, 0, 0, 0.82), transparent 72%);
   z-index: -1;
 }
 
@@ -94,9 +96,11 @@ a {
 @layer utilities {
   .bg-grid-soft {
     background-image:
-      linear-gradient(0deg, rgba(148, 163, 184, 0.12) 1px, transparent 0),
-      linear-gradient(90deg, rgba(148, 163, 184, 0.12) 1px, transparent 0);
-    background-size: 70px 70px;
+      linear-gradient(0deg, rgba(210, 218, 255, 0.25) 1.2px, transparent 0),
+      linear-gradient(90deg, rgba(210, 218, 255, 0.25) 1.2px, transparent 0),
+      radial-gradient(circle, rgba(148, 163, 184, 0.22) 1px, transparent 0);
+    background-size: 60px 60px, 60px 60px, 60px 60px;
+    background-position: 0 0, 0 0, 30px 30px;
   }
 
   .mask-fade-b {

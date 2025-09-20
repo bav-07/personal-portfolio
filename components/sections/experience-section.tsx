@@ -21,27 +21,27 @@ type ExperienceHighlightProps = {
 };
 
 const sectionVariants = {
-  hidden: { opacity: 0, y: 40 },
+  hidden: { opacity: 0, y: 30 },
   show: {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.6,
+      duration: 0.34,
       ease: easeOut,
       when: "beforeChildren",
-      staggerChildren: 0.1,
+      staggerChildren: 0.05,
     },
   },
 } as const;
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 26 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.45, ease: easeOut } },
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.24, ease: easeOut } },
 } as const;
 
 const highlightVariants = {
-  hidden: { opacity: 0, y: 18 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.32, ease: easeOut } },
+  hidden: { opacity: 0, y: 12 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.18, ease: easeOut } },
 } as const;
 
 function ExperienceHighlight({ text }: ExperienceHighlightProps) {

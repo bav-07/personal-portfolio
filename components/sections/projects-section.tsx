@@ -25,22 +25,22 @@ type ProjectLinkProps = {
 };
 
 const sectionVariants = {
-  hidden: { opacity: 0, y: 40 },
+  hidden: { opacity: 0, y: 30 },
   show: {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.6,
+      duration: 0.34,
       ease: easeOut,
       when: "beforeChildren",
-      staggerChildren: 0.1,
+      staggerChildren: 0.05,
     },
   },
 } as const;
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 26 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.42, ease: easeOut } },
+  hidden: { opacity: 0, y: 18 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.22, ease: easeOut } },
 } as const;
 
 function TechBadge({ name }: TechBadgeProps) {

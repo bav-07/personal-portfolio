@@ -15,22 +15,22 @@ export function AboutSection({ eyebrow, title, paragraphs }: AboutSectionProps) 
   const [leadParagraph, ...additionalParagraphs] = paragraphs;
 
   const sectionVariants = {
-    hidden: { opacity: 0, y: 36 },
+    hidden: { opacity: 0, y: 28 },
     show: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.55,
+        duration: 0.32,
         ease: easeOut,
         when: "beforeChildren",
-        staggerChildren: 0.08,
+        staggerChildren: 0.05,
       },
     },
   } as const;
 
   const cardVariants = {
-    hidden: { opacity: 0, y: 24 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: easeOut } },
+    hidden: { opacity: 0, y: 18 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.22, ease: easeOut } },
   } as const;
 
   return (

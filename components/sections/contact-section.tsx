@@ -19,35 +19,35 @@ type ContactButtonProps = {
 const easeOut: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 const sectionVariants = {
-  hidden: { opacity: 0, scale: 0.94 },
+  hidden: { opacity: 0, scale: 0.97 },
   show: {
     opacity: 1,
     scale: 1,
-    transition: { duration: 0.52, ease: easeOut, when: "beforeChildren", staggerChildren: 0.08 },
+    transition: { duration: 0.3, ease: easeOut, when: "beforeChildren", staggerChildren: 0.05 },
   },
 } as const;
 
 const contentVariants = {
-  hidden: { opacity: 0, y: 24 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: easeOut } },
+  hidden: { opacity: 0, y: 18 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.24, ease: easeOut } },
 } as const;
 
 const listVariants = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
-    transition: { staggerChildren: 0.06, delayChildren: 0.06 },
+    transition: { staggerChildren: 0.04, delayChildren: 0.02 },
   },
 } as const;
 
 const buttonVariants = {
-  hidden: { opacity: 0, y: 18 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.35, ease: easeOut } },
+  hidden: { opacity: 0, y: 12 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.2, ease: easeOut } },
 } as const;
 
 const linkVariants = {
-  hidden: { opacity: 0, y: 16 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.3, ease: easeOut } },
+  hidden: { opacity: 0, y: 12 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.18, ease: easeOut } },
 } as const;
 
 function ContactLink({ href, label }: ContactLinkProps) {
