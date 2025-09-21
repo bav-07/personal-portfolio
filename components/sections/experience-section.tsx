@@ -18,6 +18,7 @@ type ExperienceCardProps = {
 
 type ExperienceHighlightProps = {
   text: string;
+  className?: string;
 };
 
 const sectionVariants = {
@@ -44,11 +45,11 @@ const highlightVariants = {
   show: { opacity: 1, y: 0, transition: { duration: 0.18, ease: easeOut } },
 } as const;
 
-function ExperienceHighlight({ text }: ExperienceHighlightProps) {
+function ExperienceHighlight({ text, className }: ExperienceHighlightProps) {
   return (
     <motion.li
       variants={highlightVariants}
-      className="relative overflow-hidden rounded-2xl border border-white/25 bg-white/10 px-4 py-3 text-sm leading-relaxed text-slate-100"
+      className={"relative overflow-hidden rounded-2xl border border-white/25 bg-white/10 px-4 py-3 text-sm leading-relaxed text-slate-100 " + (className || "")}
     >
       <span
         aria-hidden
@@ -75,8 +76,8 @@ function ExperienceCard({ experience }: ExperienceCardProps) {
         />
         <div className="relative z-10 flex flex-wrap items-baseline justify-between gap-3">
           <div>
-            <h3 className="font-display text-lg font-semibold text-white">{experience.role}</h3>
-            <p className="text-sm text-slate-200">{experience.company}</p>
+            <h3 className="font-display text-lg font-bold text-white">{experience.role}</h3>
+            <p className="text-sm text-slate-200 font-semibold">{experience.company}</p>
           </div>
           <span className="text-xs uppercase tracking-[0.4em] text-fuchsia-100/70">
             {experience.period}
@@ -87,11 +88,14 @@ function ExperienceCard({ experience }: ExperienceCardProps) {
         </p>
         <motion.ul
           variants={highlightVariants}
-          className="relative z-10 mt-4 grid gap-2 text-sm text-slate-100 sm:grid-cols-2"
+          className="relative z-10 mt-4 grid gap-4 text-sm text-slate-100 sm:grid-cols-2"
         >
-          {experience.highlights.map((item) => (
-            <ExperienceHighlight key={item} text={item} />
-          ))}
+          {experience.highlights.map((item, idx) => {
+            const isLast = idx === experience.highlights.length - 1;
+            const isOdd = experience.highlights.length % 2 === 1;
+            const spanClass = isLast && isOdd ? 'sm:col-span-2' : '';
+            return <ExperienceHighlight key={item} text={item} className={spanClass} />;
+          })}
         </motion.ul>
       </article>
     </motion.li>
