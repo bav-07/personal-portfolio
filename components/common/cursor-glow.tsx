@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 
-type CursorVariant = "default" | "pointer" | "text";
+type CursorVariant = "default" | "pointer" | "text" | "nav";
 
 type Coordinates = {
   x: number;
@@ -13,10 +13,20 @@ const defaultCoords: Coordinates = { x: 0, y: 0 };
 
 const CursorGlow = () => {
   const [coordinates, setCoordinates] = useState<Coordinates>(defaultCoords);
+  const [glowCoordinates, setGlowCoordinates] = useState<Coordinates>(defaultCoords);
   const [isPointerDown, setIsPointerDown] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [variant, setVariant] = useState<CursorVariant>("default");
   const [isFinePointer, setIsFinePointer] = useState(false);
+  const [glowOffset, setGlowOffset] = useState<Coordinates>({ x: 0, y: 0 });
+  const [showClickGlow, setShowClickGlow] = useState(false);
+  const [hoveredElement, setHoveredElement] = useState<{
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+    borderRadius: number;
+  } | null>(null);
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(pointer: fine)");
@@ -74,26 +84,125 @@ const CursorGlow = () => {
       setIsVisible(true);
 
       if (event.target instanceof Element) {
-        const element = event.target;
-        const computedCursor = window.getComputedStyle(element).cursor;
-        const isTextTarget =
-          computedCursor === "text" ||
-          element.tagName === "INPUT" ||
-          element.tagName === "TEXTAREA" ||
-          (element instanceof HTMLElement ? element.isContentEditable : false);
+        // Function to find the closest interactive element
+        const findInteractiveElement = (element: Element): Element | null => {
+          let current: Element | null = element;
+          
+          while (current && current !== document.body) {
+            const computedStyle = window.getComputedStyle(current);
+            const computedCursor = computedStyle.cursor;
+            
+            // Check if current element is interactive
+            const isInteractive = computedCursor === "pointer" || 
+                                 current.tagName === "A" || 
+                                 current.tagName === "BUTTON" ||
+                                 current.hasAttribute("onclick") ||
+                                 current.getAttribute("role") === "button";
+            
+            if (isInteractive) {
+              return current;
+            }
+            
+            current = current.parentElement;
+          }
+          
+          return null;
+        };
 
-        if (computedCursor === "pointer") {
-          setVariant("pointer");
-        } else if (isTextTarget) {
-          setVariant("text");
+        const interactiveElement = findInteractiveElement(event.target);
+        
+        if (interactiveElement) {
+          const computedStyle = window.getComputedStyle(interactiveElement);
+          const computedCursor = computedStyle.cursor;
+          const isTextTarget =
+            computedCursor === "text" ||
+            interactiveElement.tagName === "INPUT" ||
+            interactiveElement.tagName === "TEXTAREA" ||
+            (interactiveElement instanceof HTMLElement ? interactiveElement.isContentEditable : false);
+          
+          if (!isTextTarget) {
+            // Check if it's a navigation link (only inside nav element, not all header elements)
+            const isNavLink = interactiveElement.closest('nav') !== null;
+            
+            setVariant(isNavLink ? "nav" : "pointer");
+            
+            // Calculate element dimensions - cache expensive calculations
+            const rect = interactiveElement.getBoundingClientRect();
+            const paddingTop = parseFloat(computedStyle.paddingTop) || 0;
+            const paddingRight = parseFloat(computedStyle.paddingRight) || 0;
+            const paddingBottom = parseFloat(computedStyle.paddingBottom) || 0;
+            const paddingLeft = parseFloat(computedStyle.paddingLeft) || 0;
+
+            const isBrandLink = interactiveElement.hasAttribute('data-brand-link');
+
+            // Base visual padding (symmetrical) for non-nav interactive elements
+            const visualPadding = 8;
+            const borderRadius = parseFloat(computedStyle.borderRadius) || 8;
+            let totalWidth = rect.width + (visualPadding * 2);
+            let totalHeight = rect.height + (visualPadding * 2);
+
+            // Extra right-only padding for brand link to create a "tag" feel
+            // Keeps left edge snug while giving breathing room on the right
+            const extraRightPadding = isBrandLink ? 16 : 0; // tweakable
+
+            // Border radius logic
+            const maxBorderRadius = totalHeight / 2;
+            let finalBorderRadius: number;
+
+            if (isNavLink) {
+              finalBorderRadius = 4; // match nav link rounding
+              totalWidth = rect.width; // nav links stay tight (no added visual padding)
+              totalHeight = rect.height;
+            } else {
+              finalBorderRadius = Math.max(borderRadius, Math.min(maxBorderRadius, 24));
+            }
+
+            // Apply asymmetric expansion for brand link (only extend width to the right)
+            if (!isNavLink && isBrandLink) {
+              totalWidth += extraRightPadding; // extend width to right side only
+            }
+
+            // Compute center X taking into account asymmetric right extension.
+            // Left boundary should remain rect.left - visualPadding (for symmetry) unless nav link
+            let centerX: number;
+            if (isNavLink) {
+              centerX = rect.left + rect.width / 2;
+            } else {
+              const baseLeft = rect.left - visualPadding; // original left with padding
+              const effectiveWidth = rect.width + visualPadding * 2 + (isBrandLink ? extraRightPadding : 0);
+              centerX = baseLeft + effectiveWidth / 2;
+            }
+
+            setHoveredElement({
+              x: centerX,
+              y: rect.top + rect.height / 2,
+              width: isNavLink ? rect.width : totalWidth,
+              height: isNavLink ? rect.height : totalHeight,
+              borderRadius: finalBorderRadius,
+            });
+          } else {
+            setHoveredElement(null);
+            setVariant("text");
+          }
         } else {
+          setHoveredElement(null);
           setVariant("default");
         }
       }
     };
 
-    const handlePointerDown = () => setIsPointerDown(true);
-    const handlePointerUp = () => setIsPointerDown(false);
+    const handlePointerDown = () => {
+      setIsPointerDown(true);
+      setShowClickGlow(true);
+    };
+    
+    const handlePointerUp = () => {
+      setIsPointerDown(false);
+      // Delay hiding the click glow to allow smooth fade-out
+      setTimeout(() => {
+        setShowClickGlow(false);
+      }, 200); // Increased delay for smoother transition
+    };
 
     const handlePointerLeave = () => {
       setIsVisible(false);
@@ -116,39 +225,156 @@ const CursorGlow = () => {
     };
   }, [isFinePointer]);
 
-  const { glowDiameter, glowColor, glowOpacity, cursorSize, cursorColor } = useMemo(() => {
+  // Fluid glow animation with lag and organic movement
+  useEffect(() => {
+    if (!isFinePointer) return;
+
+    let animationId: number;
+    let lastTime = 0;
+
+    const animateGlow = (currentTime: number) => {
+      if (currentTime - lastTime > 33) { // Back to ~30fps for smoother goo effect
+        setGlowCoordinates(prev => {
+          // Balanced lag for visible goo effect
+          const lagFactor = 0.03; // Less extreme lag, still goo-like but visible
+          
+          // Enhanced organic movement for goo-like fluidity with random character
+          const time = currentTime * 0.001;
+          
+          // Base organic movement (smooth waves) - visible but not overwhelming
+          const organicX = Math.sin(time * 1.2) * 18 + Math.cos(time * 0.8) * 12;
+          const organicY = Math.cos(time * 1.1) * 18 + Math.sin(time * 0.9) * 12;
+          
+          // Random movement with character - larger but controlled
+          const randomX = Math.sin(time * 2.37) * 12 + Math.cos(time * 3.14) * 8 + Math.sin(time * 5.67) * 5;
+          const randomY = Math.cos(time * 2.83) * 12 + Math.sin(time * 4.19) * 8 + Math.cos(time * 6.41) * 5;
+          
+          // Chaotic micro-movements - visible but not excessive
+          const chaoticX = Math.sin(time * 12.7) * 4 + Math.cos(time * 18.3) * 3;
+          const chaoticY = Math.cos(time * 15.1) * 4 + Math.sin(time * 21.9) * 3;
+          
+          // Occasional "impulses" - controlled size
+          const impulseX = Math.sin(time * 0.3) > 0.9 ? (Math.random() * 20 - 10) : 0;
+          const impulseY = Math.cos(time * 0.4) > 0.9 ? (Math.random() * 20 - 10) : 0;
+          
+          // Goo deformation - reduced for stability
+          const deformX = (prev.x - coordinates.x) * 0.2; // Reduced deformation
+          const deformY = (prev.y - coordinates.y) * 0.2;
+          
+          // Controlled drag-based deformation
+          const velocityX = coordinates.x - prev.x;
+          const velocityY = coordinates.y - prev.y;
+          const dragDeformX = -velocityX * 1; // Reduced drag effect
+          const dragDeformY = -velocityY * 1;
+          
+          // Combine movements with limits to keep glow near cursor
+          const totalOffsetX = Math.max(-50, Math.min(50, organicX + randomX + chaoticX + impulseX + deformX + dragDeformX));
+          const totalOffsetY = Math.max(-50, Math.min(50, organicY + randomY + chaoticY + impulseY + deformY + dragDeformY));
+          
+          // Target position with bounded organic offset
+          const targetX = coordinates.x + totalOffsetX;
+          const targetY = coordinates.y + totalOffsetY;
+          
+          // Smooth interpolation towards target with balanced goo-like lag
+          return {
+            x: prev.x + (targetX - prev.x) * lagFactor,
+            y: prev.y + (targetY - prev.y) * lagFactor,
+          };
+        });
+        
+        lastTime = currentTime;
+      }
+      
+      animationId = requestAnimationFrame(animateGlow);
+    };
+
+    animationId = requestAnimationFrame(animateGlow);
+
+    return () => {
+      if (animationId) {
+        cancelAnimationFrame(animationId);
+      }
+    };
+  }, [coordinates, isFinePointer]);
+
+  const { glowDiameter, glowColor, glowOpacity, cursorSize, cursorColor, borderRadius: variantBorderRadius } = useMemo(() => {
     const variantSettings: Record<CursorVariant, {
       glowDiameter: number;
       glowColor: string;
       glowOpacity: number;
       cursorSize: number;
       cursorColor: string;
+      borderRadius: number;
     }> = {
       default: {
-        glowDiameter: 360,
+        glowDiameter: 800, // Increased from 360
         glowColor: "255, 119, 214",
-        glowOpacity: 0.18,
+        glowOpacity: 0.25, // Slightly increased
         cursorSize: 14,
         cursorColor: "214, 226, 255",
+        borderRadius: 7, // Half of cursorSize for perfect circle
       },
       pointer: {
-        glowDiameter: 420,
+        glowDiameter: 900, // Increased from 420
         glowColor: "255, 119, 214",
-        glowOpacity: 0.26,
+        glowOpacity: 0.35, // Increased
         cursorSize: 18,
         cursorColor: "255, 119, 214",
+        borderRadius: 32, // Pill shape for buttons
       },
       text: {
-        glowDiameter: 280,
+        glowDiameter: 700, // Increased from 280
         glowColor: "56, 189, 248",
-        glowOpacity: 0.22,
+        glowOpacity: 0.3, // Increased
         cursorSize: 10,
         cursorColor: "148, 163, 255",
+        borderRadius: 5, // Half of cursorSize for perfect circle
+      },
+      nav: {
+        glowDiameter: 750, // Increased from 320
+        glowColor: "255, 255, 255",
+        glowOpacity: 0.2, // Slightly increased
+        cursorSize: 16,
+        cursorColor: "255, 255, 255",
+        borderRadius: 8, // Fixed rounded rectangle for nav
       },
     };
 
     return variantSettings[variant];
   }, [variant]);
+
+  // Dynamic goo-like shape calculation - optimized for performance
+  const glowStyle = useMemo(() => {
+    const time = Date.now() * 0.001;
+    
+    // Simplified velocity calculation
+    const velocityX = glowCoordinates.x - coordinates.x;
+    const velocityY = glowCoordinates.y - coordinates.y;
+    const velocity = Math.sqrt(velocityX * velocityX + velocityY * velocityY);
+    
+    // Dynamic size based on movement and hovered element
+    let baseSize = 800;
+    if (hoveredElement) {
+      // Simpler calculation for better performance
+      baseSize = Math.max(800, Math.max(hoveredElement.width, hoveredElement.height) * 2.5);
+    }
+    
+    const stretchFactor = Math.min(velocity * 0.2, 30); // Reduced complexity
+    const width = baseSize + stretchFactor;
+    const height = baseSize - stretchFactor * 0.2;
+    
+    // Simplified distortion for better performance
+    const distortX = Math.sin(time * 1.8) * 0.1;
+    const distortY = Math.cos(time * 1.6) * 0.1;
+    
+    return {
+      width: width,
+      height: height,
+      transform: `translate3d(-50%, -50%, 0) scale(${1 + distortX}, ${1 + distortY}) rotate(${velocityX * 0.05}deg)`,
+      // Reduced brightness of the base glow
+      baseOpacity: hoveredElement ? 0.45 : 0.35,
+    };
+  }, [glowCoordinates, coordinates, hoveredElement]); // Removed isPointerDown to reduce recalculations
 
   if (!isFinePointer) {
     return null;
@@ -156,44 +382,119 @@ const CursorGlow = () => {
 
   return (
     <>
+      {/* Dynamic grid overlay that follows the glow */}
       <div
         aria-hidden="true"
         style={{
           position: "fixed",
-          left: coordinates.x,
-          top: coordinates.y,
-          width: glowDiameter,
-          height: glowDiameter,
+          top: 0,
+          left: 0,
+          width: "100vw",
+          height: "100vh",
           pointerEvents: "none",
-          transform: "translate3d(-50%, -50%, 0)",
-          borderRadius: "9999px",
-          background: `radial-gradient(circle, rgba(${glowColor}, ${isPointerDown ? glowOpacity + 0.08 : glowOpacity}) 0%, rgba(${glowColor}, 0) 65%)`,
-          opacity: isVisible ? 1 : 0,
-          transition: "opacity 200ms ease, background 250ms ease",
-          mixBlendMode: "screen",
-          zIndex: 20,
-          filter: "blur(0px)",
+          backgroundImage: `
+            linear-gradient(0deg, rgba(210, 218, 255, 0.3) 1.35px, transparent 0),
+            linear-gradient(90deg, rgba(210, 218, 255, 0.3) 1.35px, transparent 0),
+            radial-gradient(circle, rgba(148, 163, 184, 0.28) 1px, transparent 0)
+          `,
+          backgroundSize: "80px 80px, 80px 80px, 80px 80px",
+          backgroundPosition: "0 0, 0 0, 40px 40px",
+          maskImage: `radial-gradient(circle ${glowDiameter * 1.2}px at ${glowCoordinates.x}px ${glowCoordinates.y}px, 
+            black 0%, 
+            black 40%, 
+            transparent 80%)`,
+          WebkitMaskImage: `radial-gradient(circle ${glowDiameter * 1.2}px at ${glowCoordinates.x}px ${glowCoordinates.y}px, 
+            black 0%, 
+            black 40%, 
+            transparent 80%)`,
+          opacity: isVisible ? 0.1 : 0,
+          transition: "opacity 400ms ease, mask-image 200ms ease, -webkit-mask-image 200ms ease",
+          zIndex: -1, // Behind all content including sections
         }}
       />
+      {/* Base fluid glow */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: "fixed",
+          left: glowCoordinates.x,
+          top: glowCoordinates.y,
+          width: glowStyle.width,
+          height: glowStyle.height,
+          pointerEvents: "none",
+          transform: glowStyle.transform,
+            borderRadius: "50%",
+            background: `radial-gradient(ellipse 50% 60% at center, 
+              rgba(255, 255, 255, ${glowStyle.baseOpacity * 0.85}) 0%, 
+              rgba(255, 255, 255, ${glowStyle.baseOpacity * 0.65}) 10%, 
+              rgba(255, 255, 255, ${glowStyle.baseOpacity * 0.5}) 20%, 
+              rgba(255, 255, 255, 0.28) 30%, 
+              rgba(255, 255, 255, 0.20) 40%, 
+              rgba(255, 255, 255, 0.15) 50%, 
+              rgba(255, 255, 255, 0.11) 60%, 
+              rgba(255, 255, 255, 0.08) 70%, 
+              rgba(255, 255, 255, 0.055) 80%, 
+              rgba(255, 255, 255, 0.03) 90%, 
+              rgba(255, 255, 255, 0.015) 95%, 
+              transparent 100%)`,
+            opacity: isVisible ? 1 : 0,
+            transition: "opacity 400ms ease",
+            mixBlendMode: "overlay",
+            zIndex: 20,
+            filter: `blur(60px)`, // Reduced blur to match lower brightness
+        }}
+      />
+      {/* Click enhancement overlay */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: "fixed",
+          left: glowCoordinates.x,
+          top: glowCoordinates.y,
+          width: showClickGlow ? glowStyle.width * 1.4 : glowStyle.width,
+          height: showClickGlow ? glowStyle.height * 1.4 : glowStyle.height,
+          pointerEvents: "none",
+          transform: glowStyle.transform,
+          borderRadius: "50%",
+          background: `radial-gradient(ellipse 50% 60% at center, 
+            rgba(255, 255, 255, 0.18) 0%, 
+            rgba(255, 255, 255, 0.14) 15%, 
+            rgba(255, 255, 255, 0.10) 30%, 
+            rgba(255, 255, 255, 0.06) 50%, 
+            rgba(255, 255, 255, 0.035) 70%, 
+            transparent 85%)`,
+          opacity: isVisible && showClickGlow ? 0.85 : 0,
+          transition: "opacity 800ms cubic-bezier(0.25, 0.1, 0.25, 1), filter 600ms ease-out, width 400ms ease-out, height 400ms ease-out",
+          mixBlendMode: "overlay",
+          zIndex: 21,
+          filter: `blur(${showClickGlow ? 60 : 80}px)`, // Increased from 25/30px
+        }}
+      />
+      {/* Clean cursor circle */}
       <div
         aria-hidden="true"
         style={{
           position: "fixed",
           left: coordinates.x,
           top: coordinates.y,
-          width: cursorSize,
-          height: cursorSize,
+          width: hoveredElement ? hoveredElement.width : cursorSize,
+          height: hoveredElement ? hoveredElement.height : cursorSize,
           pointerEvents: "none",
-          transform: `translate3d(-50%, -50%, 0) scale(${isPointerDown ? 0.9 : 1})`,
-          borderRadius: "9999px",
-          border: `1.4px solid rgba(${cursorColor}, ${variant === "pointer" ? 0.9 : 0.65})`,
-          backgroundColor: `rgba(${cursorColor}, ${isPointerDown ? 0.4 : 0.26})`,
-          boxShadow: `0 0 32px rgba(${cursorColor}, 0.55)`,
+          transform: hoveredElement 
+            ? `translate3d(${hoveredElement.x - coordinates.x}px, ${hoveredElement.y - coordinates.y}px, 0) translate3d(-50%, -50%, 0) scale(${isPointerDown ? 0.95 : 1})`
+            : `translate3d(-50%, -50%, 0) scale(${isPointerDown ? 0.95 : 1})`,
+          borderRadius: hoveredElement ? `${variantBorderRadius}px` : `${variantBorderRadius}px`,
+          border: `1px solid rgba(255, 255, 255, ${variant === "pointer" || variant === "nav" ? 1.0 : 0.9})`,
+          backgroundColor: isPointerDown 
+            ? `rgba(255, 255, 255, ${variant === "pointer" ? 0.3 : 0.2})`
+            : `transparent`,
           opacity: isVisible ? 1 : 0,
           transition:
-            "transform 120ms ease, width 160ms ease, height 160ms ease, opacity 180ms ease, border-color 160ms ease, background-color 160ms ease, box-shadow 160ms ease",
+            "width 400ms cubic-bezier(0.25, 0.1, 0.25, 1), height 400ms cubic-bezier(0.25, 0.1, 0.25, 1), border-radius 600ms cubic-bezier(0.25, 0.1, 0.25, 1), opacity 400ms cubic-bezier(0.25, 0.1, 0.25, 1), transform 300ms cubic-bezier(0.25, 0.1, 0.25, 1)",
           mixBlendMode: "screen",
-          zIndex: 30,
+          zIndex: variant === "nav" ? 100 : 60,
+          // Debug border to see if it's expanding (disabled for performance)
+          // boxShadow: hoveredElement ? '0 0 0 2px red' : 'none',
         }}
       />
     </>

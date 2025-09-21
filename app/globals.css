@@ -76,16 +76,20 @@ body::after {
     radial-gradient(circle, rgba(148, 163, 184, 0.28) 1px, transparent 0);
   background-size: 80px 80px, 80px 80px, 80px 80px;
   background-position: 0 0, 0 0, 40px 40px;
-  opacity: 0.35;
+  opacity: 0.1;
   mix-blend-mode: screen;
-  mask-image: radial-gradient(circle at 50% 32%, rgba(0, 0, 0, 0.82), transparent 72%);
-  -webkit-mask-image: radial-gradient(circle at 50% 32%, rgba(0, 0, 0, 0.82), transparent 72%);
+  mask-image: radial-gradient(circle at 50% 32%, rgba(0, 0, 0, 0.82), rgba(0,0,0,0.1) 72%);
+  -webkit-mask-image: radial-gradient(circle at 50% 32%, rgba(0, 0, 0, 0.82), rgba(0,0,0,0.1) 72%);
   z-index: -1;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+/* Moved anchor baseline styling into Tailwind base layer so that
+   utility classes (text-*) can properly override color */
+@layer base {
+  a {
+    text-decoration: none;
+    color: inherit; /* allow parent context but not stamp over utilities */
+  }
 }
 
 ::selection {
@@ -94,14 +98,7 @@ a {
 }
 
 @media (pointer: fine) {
-  body.has-custom-cursor,
-  body.has-custom-cursor button,
-  body.has-custom-cursor a,
-  body.has-custom-cursor input,
-  body.has-custom-cursor textarea,
-  body.has-custom-cursor select {
-    cursor: none;
-  }
+  /* Custom cursor styles will be handled by the js-enabled section below */
 }
 
 @layer utilities {
@@ -121,5 +118,20 @@ a {
 
   .font-display {
     font-family: var(--font-display), var(--font-sans), sans-serif;
+  }
+}
+
+/* Progressive Enhancement: Ensure content is always visible */
+/* By default, all content should be visible (no-JS fallback) */
+
+/* Only apply custom cursor styles when JavaScript adds the has-custom-cursor class */
+@media (pointer: fine) {
+  body.has-custom-cursor,
+  body.has-custom-cursor button,
+  body.has-custom-cursor a,
+  body.has-custom-cursor input,
+  body.has-custom-cursor textarea,
+  body.has-custom-cursor select {
+    cursor: none;
   }
 }

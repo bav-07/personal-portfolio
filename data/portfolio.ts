@@ -51,13 +51,13 @@ export type HeroAction = {
 };
 
 export const profile: Profile = {
-  name: "Taylor Morgan",
+  name: "Bav Nagarajah",
   title: "Software Engineer",
-  location: "Based in Denver, CO",
+  location: "Based in London, UK",
   summary:
     "I craft resilient web platforms that balance thoughtful design with reliable engineering. With a focus on TypeScript, modern React patterns, and cloud-native tooling, I deliver interfaces that feel effortless to use.",
   availability: "Available for full-time roles and select freelance collaborations.",
-  email: "hello@taylormorgan.dev",
+  email: "bavaharsan.nagarajah@gmail.com",
 };
 
 export const navItems: NavItem[] = [
@@ -69,7 +69,7 @@ export const navItems: NavItem[] = [
 ];
 
 export const highlights: Highlight[] = [
-  { label: "Years of experience", value: "2" },
+  { label: "Years of experience", value: "2.5" },
   { label: "Projects shipped", value: "8+" },
   { label: "Teammates mentored", value: "5" },
 ];
@@ -77,8 +77,8 @@ export const highlights: Highlight[] = [
 export const heroActions: HeroAction[] = [
   { label: "View projects", href: "#projects", variant: "primary" },
   {
-    label: "Download résumé",
-    href: "https://taylormorgan.dev/resume.pdf",
+    label: "Download resume",
+    href: "https://bavaharsan.dev/resume.pdf",
     variant: "ghost",
     external: true,
   },
@@ -95,24 +95,25 @@ export const aboutContent = [
 export const experiences: Experience[] = [
   {
     role: "Software Engineer",
-    company: "Lumina Systems",
-    period: "2023 — Present",
+    company: "Sky",
+    period: "July 2023 — Present",
     description:
-      "Building design systems and shipping new product surfaces for a SaaS analytics platform serving over 40k active users.",
+      "",
     highlights: [
-      "Led the migration to a modern React stack with app directory routing and TypeScript-first components.",
-      "Collaborated with designers to launch a modular dashboard experience that lifted activation metrics by 18%.",
+      "Led the migration of data-driven Watch pages to a modern Next.js stack with app directory routing and TypeScript-first components, implementing server-side rendering for improved performance - cutting load times by 63%.",
+      "Engineered Next.js pages and components for high-impact campaigns, including the launch of Sky Glass Air and Black Friday, built for performance, accessibility and brand-consistency.",
+      "Led observability upgrades within our Next.js apps, including implementing server-side logs surfaced through Kibana/Grafana dashboards, and migrating our monitoring solution from Dynatrace to OpenTelemetry.",
+      "Re-architected Playwright automation test suite implementing GraphQL API mocking to cut out dependencies on external data, stabilising CI/CD pipeline and cutting runtime from 30 to 5 minutes."
     ],
   },
   {
-    role: "Software Engineering Intern",
-    company: "Lightwave Labs",
-    period: "2022 — 2023",
+    role: "Software Engineering Associate",
+    company: "Lloyds Banking Group",
+    period: "March 2023 - July 2023",
     description:
       "Prototyped internal tooling and automation workflows that accelerated deployment feedback loops for the engineering team.",
     highlights: [
-      "Built a CI-integrated release assistant that reduced QA turnaround time by two hours per release.",
-      "Introduced shared utility patterns, trimming bundle size and boosting confidence in refactors.",
+      "Developed savings/investment forecast microservice (Java/Spring Boot) for LBG Mobile Banking App, allowing customers to connect savings/investments to real-life goals - rolled out to 1M+ UK customers.",
     ],
   },
 ];
@@ -173,9 +174,9 @@ export const skillGroups: SkillGroup[] = [
 ];
 
 export const socialLinks: SocialLink[] = [
-  { label: "LinkedIn", href: "https://linkedin.com/in/taylormorgan" },
-  { label: "GitHub", href: "https://github.com/taylormorgan" },
-  { label: "Resume", href: "https://taylormorgan.dev/resume.pdf" },
+  { label: "LinkedIn", href: "https://linkedin.com/in/bavaharsan-nagarajah" },
+  { label: "GitHub", href: "https://github.com/bav-07" },
+  { label: "Resume", href: "https://bavaharsan.dev/resume.pdf" },
 ];
 
 export const sectionMeta = {

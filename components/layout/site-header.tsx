@@ -11,11 +11,15 @@ type NavLinkProps = NavItem;
 function NavLink({ href, label }: NavLinkProps) {
   return (
     <a
-      className="group relative inline-flex items-center overflow-hidden px-1 py-0.5 text-sm text-fuchsia-100/80 transition-colors duration-300 hover:text-white"
+      className="group relative  inline-flex items-center overflow-hidden px-4 py-2 text-sm text-fuchsia-100 font-semibold transition-all duration-300 hover:text-white rounded-lg hover:bg-linear-65 hover:from-fuchsia-500/25 hover:to-sky-400/25 hover:shadow-white/20 hover:shadow-lg"
       href={href}
+      style={{
+        backdropFilter: 'blur(10px)',
+        WebkitBackdropFilter: 'blur(10px)',
+      }}
     >
       {label}
-      <span className="pointer-events-none absolute left-0 bottom-0 h-px w-full origin-left scale-x-0 bg-gradient-to-r from-cyan-400/80 via-white/70 to-transparent transition-transform duration-300 group-hover:scale-x-100" />
+      {/* <span className="pointer-events-none absolute left-0 bottom-0 h-px w-full origin-left scale-x-0 bg-gradient-to-r from-cyan-400/80 via-white/70 to-transparent transition-transform duration-300 group-hover:scale-x-100" /> */}
     </a>
   );
 }
@@ -35,7 +39,7 @@ export function SiteHeader({ profile, navItems }: SiteHeaderProps) {
           className="pointer-events-none absolute inset-0 -z-30 bg-gradient-to-r from-white/20 via-transparent to-white/20"
         />
 
-        <div className="flex items-center gap-4">
+  <a className="flex items-center gap-4" href="#top" data-brand-link>
           <div className="flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-sm font-semibold text-white">
             <span className="text-xs tracking-[0.2em] text-slate-100">{initials}</span>
           </div>
@@ -43,7 +47,7 @@ export function SiteHeader({ profile, navItems }: SiteHeaderProps) {
             <p className="font-display text-base font-semibold text-white">{profile.name}</p>
             <p>{profile.title}</p>
           </div>
-        </div>
+        </a>
 
         <nav className="hidden items-center gap-6 md:flex">
           {navItems.map((item) => (

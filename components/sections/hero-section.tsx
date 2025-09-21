@@ -141,6 +141,7 @@ export function HeroSection({ profile, highlights, actions, headline }: HeroSect
   return (
     <motion.section
       variants={heroVariants}
+      id="hero"
       initial="hidden"
       whileInView="show"
       viewport={{ once: true, amount: 0.35 }}
