@@ -1,5 +1,6 @@
 import type { NavItem, Profile } from "@/data/portfolio";
 import { getInitials } from "@/lib/get-initials";
+import { ThemeToggle } from "@/components/common/theme-toggle";
 
 type SiteHeaderProps = {
   profile: Profile;
@@ -11,7 +12,7 @@ type NavLinkProps = NavItem;
 function NavLink({ href, label }: NavLinkProps) {
   return (
     <a
-      className="group relative  inline-flex items-center overflow-hidden px-4 py-2 text-sm text-fuchsia-100 font-semibold transition-all duration-300 hover:text-white rounded-lg hover:bg-linear-65 hover:from-fuchsia-500/25 hover:to-sky-400/25 hover:shadow-white/20 hover:shadow-lg"
+      className="site-header__nav-link group relative inline-flex items-center overflow-hidden rounded-lg px-4 py-2 text-sm font-semibold transition-all duration-300 hover:shadow-white/20 hover:shadow-lg"
       href={href}
       style={{
         backdropFilter: 'blur(10px)',
@@ -29,23 +30,23 @@ export function SiteHeader({ profile, navItems }: SiteHeaderProps) {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 w-full pt-4">
-      <div className="relative isolate mx-auto flex w-full max-w-5xl items-center justify-between gap-6 overflow-hidden rounded-full border border-white/25 bg-white/10 px-6 py-3 shadow-[0_55px_110px_-65px_rgba(244,114,182,0.75)] backdrop-blur sm:mx-6 lg:mx-auto">
+      <div className="site-header__panel relative isolate mx-auto flex w-full max-w-5xl items-center justify-between gap-6 overflow-hidden rounded-full border px-6 py-3 backdrop-blur sm:mx-6 lg:mx-auto">
         <span
           aria-hidden
-          className="pointer-events-none absolute inset-0 -z-20 bg-[radial-gradient(circle_at_top,_rgba(244,114,182,0.45),_transparent_65%)] opacity-75 transition-opacity duration-700 group-hover:opacity-95"
+          className="site-header__halo pointer-events-none absolute inset-0 -z-20 opacity-75 transition-opacity duration-700"
         />
         <span
           aria-hidden
-          className="pointer-events-none absolute inset-0 -z-30 bg-gradient-to-r from-white/20 via-transparent to-white/20"
+          className="site-header__glint pointer-events-none absolute inset-0 -z-30"
         />
 
-  <a className="flex items-center gap-4" href="#top" data-brand-link>
-          <div className="flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-sm font-semibold text-white">
-            <span className="text-xs tracking-[0.2em] text-slate-100">{initials}</span>
+        <a className="site-header__brand-link flex items-center gap-4" href="#top" data-brand-link>
+          <div className="site-header__initials flex h-11 w-11 items-center justify-center rounded-full text-sm font-semibold">
+            <span className="site-header__initials-text text-xs tracking-[0.2em]">{initials}</span>
           </div>
-          <div className="hidden text-sm leading-tight text-fuchsia-100/80 sm:block">
-            <p className="font-display text-base font-semibold text-white">{profile.name}</p>
-            <p>{profile.title}</p>
+          <div className="site-header__brand-copy hidden text-sm leading-tight sm:block">
+            <p className="site-header__brand-name font-display text-base font-semibold">{profile.name}</p>
+            <p className="site-header__brand-title">{profile.title}</p>
           </div>
         </a>
 
@@ -55,12 +56,15 @@ export function SiteHeader({ profile, navItems }: SiteHeaderProps) {
           ))}
         </nav>
 
-        <a
-          className="relative inline-flex items-center gap-2 rounded-full border border-white/35 bg-gradient-to-r from-fuchsia-400/25 via-transparent to-sky-400/25 px-5 py-2 text-sm font-medium text-white transition-all duration-500 hover:border-white/55 hover:text-white"
-          href={`mailto:${profile.email}`}
-        >
-          <span className="relative">Let's talk</span>
-        </a>
+        <div className="site-header__actions flex items-center gap-3">
+          <ThemeToggle />
+          <a
+            className="site-header__cta relative inline-flex items-center gap-2 rounded-full border px-5 py-2 text-sm font-medium transition-all duration-500"
+            href={`mailto:${profile.email}`}
+          >
+            <span className="relative">Let's talk</span>
+          </a>
+        </div>
       </div>
     </header>
   );
