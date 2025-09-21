@@ -70,7 +70,7 @@ export const navItems: NavItem[] = [
 
 export const highlights: Highlight[] = [
   { label: "Years of experience", value: "2.5" },
-  { label: "Projects shipped", value: "8+" },
+  { label: "Projects shipped", value: "10+" },
   { label: "Teammates mentored", value: "5" },
 ];
 
@@ -85,7 +85,7 @@ export const heroActions: HeroAction[] = [
 ];
 
 export const heroHeadline =
-  "Designing and shipping thoughtful products for fast-moving teams.";
+  "Hey there, I'm Bav.";
 
 export const aboutContent = [
   "I thrive in collaborative environments where shipping is the default. From pairing with designers to aligning with product partners, I help teams untangle complex requirements and deliver polished experiences quickly.",
@@ -136,12 +136,12 @@ export const projects: Project[] = [
     link: "https://shiftform.dev",
   },
   {
-    name: "Atlas UI",
+    name: "Bav UI",
     year: "2022",
     description:
       "An open-source component library that pairs expressive motion with pragmatic defaults for enterprise dashboards.",
     stack: ["Storybook", "Radix UI", "Tailwind CSS", "Vitest"],
-    link: "https://github.com/taylormorgan/atlas-ui",
+    link: "https://github.com/bav-07/bav-ui",
   },
 ];
 

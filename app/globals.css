@@ -56,9 +56,9 @@
   --background: #f9f5ff;
   --foreground: #20123f;
   --body-background:
-    radial-gradient(circle at 12% 5%, rgba(244, 189, 255, 0.55), transparent 58%),
-    radial-gradient(circle at 88% -10%, rgba(191, 219, 254, 0.55), transparent 55%),
-    radial-gradient(circle at 45% 110%, rgba(167, 243, 208, 0.35), transparent 70%),
+    radial-gradient(circle at 12% 5%, rgba(244, 189, 255, 0.1), transparent 58%),
+    radial-gradient(circle at 88% -10%, rgba(191, 219, 254, 0.1), transparent 55%),
+    radial-gradient(circle at 45% 110%, rgba(167, 243, 208, 0.1), transparent 70%),
     linear-gradient(180deg, #fef7ff 0%, #f7edff 45%, #f1e6ff 100%);
   --body-before-background:
     radial-gradient(circle at 18% 32%, rgba(244, 143, 215, 0.75), transparent 78%),
@@ -68,7 +68,7 @@
     linear-gradient(0deg, rgba(147, 181, 255, 0.28) 1.35px, transparent 0),
     linear-gradient(90deg, rgba(147, 181, 255, 0.28) 1.35px, transparent 0),
     radial-gradient(circle, rgba(209, 196, 255, 0.35) 1px, transparent 0);
-  --body-after-opacity: 0.22;
+  --body-after-opacity: 0.6;
   --body-after-mix-blend: multiply;
   --header-panel-bg: rgba(255, 255, 255, 0.9);
   --header-panel-border: rgba(168, 85, 247, 0.35);
@@ -255,15 +255,15 @@ body[data-theme="light"] ::selection {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  border: 1px solid var(--header-toggle-border);
+  /* border: 0px solid var(--header-toggle-border); */
   border-radius: 9999px;
-  padding: 0.4rem 0.9rem;
+  padding: 0.4rem;
   background: var(--header-toggle-bg);
   color: var(--header-toggle-text);
   font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.04em;
-  transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+  transition: background 0s ease, border-color 0.3s ease, box-shadow 0.3s ease;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
@@ -313,20 +313,22 @@ body[data-theme="light"] .text-emerald-100 {
   color: var(--light-accent-emerald) !important;
 }
 
+/* Escape brackets for arbitrary value utility classes so CSS parser accepts them */
 body[data-theme="light"] .bg-white\/5,
 body[data-theme="light"] .bg-white\/10,
-body[data-theme="light"] .bg-white\/[0\.08],
-body[data-theme="light"] .bg-white\/[0\.12] {
+body[data-theme="light"] .bg-white\/\[0\.08\],
+body[data-theme="light"] .bg-white\/\[0\.12\] {
   background-color: rgba(255, 255, 255, 0.78) !important;
 }
 
 body[data-theme="light"] .hover\:bg-white\/10:hover,
-body[data-theme="light"] .hover\:bg-white\/[0\.12]:hover {
+body[data-theme="light"] .hover\:bg-white\/\[0\.12\]:hover {
   background-color: rgba(255, 255, 255, 0.88) !important;
 }
 
-body[data-theme="light"] .bg-[#070a1d]\/90,
-body[data-theme="light"] .bg-[#070c26] {
+/* Escape brackets AND # for arbitrary hex color classes */
+body[data-theme="light"] .bg-\[\#070a1d\]\/90,
+body[data-theme="light"] .bg-\[\#070c26\] {
   background-color: rgba(255, 255, 255, 0.88) !important;
   color: var(--light-text-primary);
 }
@@ -346,6 +348,24 @@ body[data-theme="light"] .border-white\/60 {
 body[data-theme="light"] .hover\:border-white\/55:hover,
 body[data-theme="light"] .hover\:border-white\/60:hover {
   border-color: rgba(124, 58, 237, 0.45) !important;
+}
+
+/* Section Header lines - soften and flatten for light mode */
+[data-theme="light"] .section-header__rule-top,
+:root[data-theme="light"] .section-header__rule-top {
+  background: linear-gradient(90deg, rgba(168, 85, 247, 0.8), rgba(14, 165, 233, 0.85), rgba(14, 165, 233, 0));
+  opacity: 0.85;
+}
+[data-theme="light"] .section-header__rule-bottom,
+:root[data-theme="light"] .section-header__rule-bottom {
+  background: linear-gradient(90deg, rgba(168, 85, 247, 0.8), rgba(210, 132, 153, 0.8), rgba(14, 165, 233, 0.85));
+  opacity: 0.8;
+}
+[data-theme="light"] .section-header__rule-top,
+[data-theme="light"] .section-header__rule-bottom,
+:root[data-theme="light"] .section-header__rule-top,
+:root[data-theme="light"] .section-header__rule-bottom {
+  transition: background 0.4s ease, opacity 0.4s ease;
 }
 
 @media (pointer: fine) {
@@ -385,4 +405,38 @@ body[data-theme="light"] .hover\:border-white\/60:hover {
   body.has-custom-cursor select {
     cursor: none;
   }
+}
+
+/* Hero primary button gradients (attribute-driven for reliability) */
+.hero-btn-primary {
+  background-image: linear-gradient(30deg, rgba(186, 230, 253, 0.65), rgba(252, 231, 243, 0.55), rgba(240, 171, 252, 0.65));
+  backdrop-filter: saturate(1.15) brightness(1.02);
+  -webkit-backdrop-filter: saturate(1.15) brightness(1.02);
+  position: relative;
+}
+
+[data-theme="light"] .hero-btn-primary, :root[data-theme="light"] .hero-btn-primary {
+  background-image: linear-gradient(30deg, rgba(186, 230, 253, 0.82), rgba(252, 231, 243, 0.78), rgba(240, 171, 252, 0.85));
+  color: #1e0f3f;
+  text-shadow: 0 1px 1px rgba(255,255,255,0.4);
+}
+
+[data-theme="light"] .hero-btn-primary:hover, :root[data-theme="light"] .hero-btn-primary:hover {
+  background-image: linear-gradient(30deg, rgba(186, 230, 253, 0.9), rgba(252, 231, 243, 0.86), rgba(240, 171, 252, 0.92));
+}
+
+[data-theme="dark"] .hero-btn-primary, :root[data-theme="dark"] .hero-btn-primary {
+  background-image: linear-gradient(30deg, rgba(56, 189, 248, 0.55), rgba(244, 114, 182, 0.45), rgba(217, 70, 239, 0.6));
+}
+
+[data-theme="dark"] .hero-btn-primary:hover, :root[data-theme="dark"] .hero-btn-primary:hover {
+  background-image: linear-gradient(30deg, rgba(56, 189, 248, 0.68), rgba(244, 114, 182, 0.58), rgba(217, 70, 239, 0.72));
+}
+
+.hero-btn-primary:focus-visible {
+  outline: 2px solid rgba(255,255,255,0.7);
+  outline-offset: 2px;
+}
+[data-theme="light"] .hero-btn-primary:focus-visible {
+  outline: 2px solid rgba(124,58,237,0.55);
 }

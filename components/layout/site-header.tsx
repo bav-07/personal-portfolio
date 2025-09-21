@@ -58,12 +58,12 @@ export function SiteHeader({ profile, navItems }: SiteHeaderProps) {
 
         <div className="site-header__actions flex items-center gap-3">
           <ThemeToggle />
-          <a
+          {/* <a
             className="site-header__cta relative inline-flex items-center gap-2 rounded-full border px-5 py-2 text-sm font-medium transition-all duration-500"
             href={`mailto:${profile.email}`}
           >
             <span className="relative">Let's talk</span>
-          </a>
+          </a> */}
         </div>
       </div>
     </header>
