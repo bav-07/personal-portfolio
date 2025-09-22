@@ -1,7 +1,7 @@
 "use client";
 
 import { MoonIcon, SunIcon } from "@heroicons/react/16/solid";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 const STORAGE_KEY = "portfolio-theme";
 
@@ -34,9 +34,13 @@ function resolvePreferredTheme(): Theme {
 }
 
 export function ThemeToggle({ className }: ThemeToggleProps) {
-  // Don't try to guess the theme during SSR - wait for client hydration
+  // Theme may be null until hydrated.
   const [theme, setTheme] = useState<Theme | null>(null);
   const [mounted, setMounted] = useState(false);
+  // Track whether the user explicitly changed the theme in this session.
+  const userInteractedRef = useRef(false);
+  // Track if we already persisted an implicit system-derived theme (avoid repeated writes).
+  const systemPersistedRef = useRef(false);
 
   // Read theme synchronously on client, set to null for SSR
   useEffect(() => {
@@ -48,13 +52,22 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
   }, []);
 
   useEffect(() => {
-    if (typeof document === "undefined" || theme === null) {
-      return;
-    }
+    if (typeof document === "undefined" || theme === null) return;
 
     document.documentElement.dataset.theme = theme;
     document.body.dataset.theme = theme;
-    window.localStorage.setItem(STORAGE_KEY, theme);
+
+    // Only persist if user explicitly toggled OR we haven't persisted yet AND there was no prior stored value.
+    if (userInteractedRef.current) {
+      window.localStorage.setItem(STORAGE_KEY, theme);
+    } else {
+      const existing = window.localStorage.getItem(STORAGE_KEY);
+      if (!existing && !systemPersistedRef.current) {
+        // Persist the initial system-derived theme once (optional: could skip entirely to always follow system until user acts)
+        window.localStorage.setItem(STORAGE_KEY, theme);
+        systemPersistedRef.current = true;
+      }
+    }
   }, [theme]);
 
   useEffect(() => {
@@ -109,12 +122,15 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
     );
   }
 
+  const handleToggle = () => {
+    userInteractedRef.current = true;
+    setTheme((current) => (current === "dark" ? "light" : "dark"));
+  };
+
   return (
     <button
       type="button"
-      onClick={() =>
-        setTheme((current) => (current === "dark" ? "light" : "dark"))
-      }
+      onClick={handleToggle}
       className={["site-header__toggle", className].filter(Boolean).join(" ")}
       aria-label={label}
       role="switch"
@@ -123,9 +139,6 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
       <span aria-hidden className="">
         {theme === "dark" ? <MoonIcon className="size-6" /> : <SunIcon className="size-6" />}
       </span>
-      {/* <span className="site-header__toggle-label">
-        {theme === "dark" ? "Dark" : "Light"} mode
-      </span> */}
     </button>
   );
 }
