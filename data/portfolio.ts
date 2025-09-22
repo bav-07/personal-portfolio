@@ -146,7 +146,7 @@ export const projects: Project[] = [
   },
   {
     name: "Kabutops Trumps",
-    year: "2024",
+    year: "2023",
     description:
       "A Pokémon-themed Top Trumps game where users compare stats across cards to win rounds. Developed as a collaborative React project, focusing on state management and interactive UI.",
     stack: ["JavaScript", "React", "CSS", "Java", "Spring Boot", "Tailwind"],
@@ -154,7 +154,7 @@ export const projects: Project[] = [
   },
   {
     name: "Movie Reviews",
-    year: "2024",
+    year: "2023",
     description:
       "A movie review platform with search functionality, and the ability to post and manage reviews. Designed to explore full-stack app development with modern front-end practices.",
     stack: ["JavaScript", "React", "CSS", "Node.js"],
@@ -235,7 +235,7 @@ export const skillGroups: SkillGroup[] = [
 export const socialLinks: SocialLink[] = [
   { label: "LinkedIn", href: "https://linkedin.com/in/bavaharsan-nagarajah" },
   { label: "GitHub", href: "https://github.com/bav-07" },
-  { label: "Resume", href: "https://bavaharsan.dev/resume.pdf" },
+  { label: "Youtube", href: "https://www.youtube.com/@bavdev" },
 ];
 
 export const sectionMeta = {

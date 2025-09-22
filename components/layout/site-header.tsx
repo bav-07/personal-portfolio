@@ -88,12 +88,12 @@ export function SiteHeader({ profile, navItems }: SiteHeaderProps) {
         />
 
         <a className="site-header__brand-link flex items-center gap-4" href="#top" data-brand-link>
-          <div className="site-header__initials flex h-11 w-11 aspect-square items-center justify-center rounded-full text-sm font-semibold">
+          {/* <div className="site-header__initials flex h-11 w-11 aspect-square items-center justify-center rounded-full text-sm font-semibold">
             <span className="site-header__initials-text text-xs tracking-[0.2em]">{initials}</span>
-          </div>
+          </div> */}
           <div className="site-header__brand-copy text-sm leading-tight">
             <p className="site-header__brand-name font-display text-base font-semibold">{profile.name}</p>
-            <p className="site-header__brand-title">{profile.title}</p>
+            <p className="site-header__brand-title tracking-tighter">{profile.title}</p>
           </div>
         </a>
 
@@ -104,13 +104,13 @@ export function SiteHeader({ profile, navItems }: SiteHeaderProps) {
         </nav>
 
         <div className="site-header__actions flex items-center gap-3">
-          <div className="hidden md:flex items-center gap-2 pr-1">
+          <div className="flex items-center gap-3">
             <a
               href={profile.github}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="GitHub profile"
-              className="site-header__social-link relative inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-white/80 hover:text-white hover:border-white/40 transition-colors"
+              className="site-header__social-link relative inline-flex h-9 w-9 items-center justify-center rounded-full  text-white/80 hover:text-white  transition-colors"
             >
               <FaGithub className="h-[1.05rem] w-[1.05rem]" />
             </a>
@@ -119,7 +119,7 @@ export function SiteHeader({ profile, navItems }: SiteHeaderProps) {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn profile"
-              className="site-header__social-link relative inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-white/80 hover:text-white hover:border-white/40 transition-colors"
+              className="site-header__social-link relative inline-flex h-9 w-9 items-center justify-center rounded-full  text-white/80 hover:text-white transition-colors"
             >
               <FaLinkedin className="h-[1.05rem] w-[1.05rem]" />
             </a>

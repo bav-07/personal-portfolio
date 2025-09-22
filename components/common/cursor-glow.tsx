@@ -208,7 +208,7 @@ const CursorGlow = () => {
             if (isNavLink) {
               centerX = rect.left + rect.width / 2;
             } else {
-              const baseLeft = rect.left - visualPadding; // original left with padding
+              const baseLeft = rect.left - (isBrandLink ? visualPadding * 2 : visualPadding); // original left with padding
               const effectiveWidth = rect.width + visualPadding * 2 + (isBrandLink ? extraRightPadding : 0);
               centerX = baseLeft + effectiveWidth / 2;
             }
