@@ -217,7 +217,7 @@ export function HeroSection({ profile, highlights, actions, headline }: HeroSect
 
           <motion.div
             variants={contentVariants}
-            className="flex flex-wrap items-center gap-3 pt-2"
+            className="flex flex-wrap items-center gap-3 md:pt-2"
           >
             {actions.map((action) => (
               <HeroActionButton key={action.label} action={action} />

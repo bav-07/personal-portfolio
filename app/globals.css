@@ -273,8 +273,8 @@ body::after {
     to bottom,
     rgba(244,114,182,0.7),
     rgba(244,114,182,0.48) 8%,
-    rgba(255,255,255,0.16) 18%,
-    rgba(255,255,255,0.07) 55%,
+    rgba(255, 255, 255, 0.16) 18%,
+    rgba(176, 243, 203, 0.4) 55%,
     rgba(56,189,248,0.42) 88%,
     rgba(56,189,248,0)
   );
@@ -289,11 +289,18 @@ body::after {
     rgba(147,51,234,0.85),
     rgba(168,85,247,0.62) 9%,
     rgba(186,140,255,0.42) 22%,
-    rgba(124,58,237,0.34) 55%,
+    rgba(7, 103, 45, 0.3) 55%,
     rgba(99,102,241,0.5) 80%,
     rgba(56,189,248,0)
   );
   opacity: 0.98;
+}
+
+/* Mobile timeline adjustment - move line slightly to the right */
+@media (max-width: 639px) {
+  .experience-timeline::before {
+    left: 1.825rem; /* moved right by 1rem from default 0.825rem */
+  }
 }
 
 /* Light mode mobile panel readability */
@@ -355,6 +362,13 @@ body::after {
 /* Active / pressed state (optional subtle feedback) */
 .mobile-nav__link:active {
   transform: translateY(1px);
+}
+[data-theme="light"] .experience-card {
+  /* Restore a distinct, theme-appropriate border tint for experience cards in light mode */
+  border-color: rgba(168,85,247,0.15) !important; /* violet-600/35 */
+}
+[data-theme="light"] .experience-card:hover {
+  border-color: rgba(124,58,237,0.35) !important; /* violet-700/55 for hover emphasis */
 }
 [data-theme="light"] .mobile-nav__link:active {
   background: linear-gradient(120deg, rgba(245,242,255,0.92), rgba(230,240,255,0.84));

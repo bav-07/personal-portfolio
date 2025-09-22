@@ -23,6 +23,7 @@ export type Experience = {
   role: string;
   company: string;
   period: string;
+  logo: string;
   description: string;
   highlights: string[];
 };
@@ -66,7 +67,7 @@ export const profile: Profile = {
 
 export const navItems: NavItem[] = [
   { label: "About", href: "#about" },
-  { label: "Experience", href: "#experience" },
+  { label: "Journey", href: "#journey" },
   { label: "Projects", href: "#projects" },
   { label: "Skills", href: "#skills" },
   { label: "Contact", href: "#contact" },
@@ -81,10 +82,9 @@ export const highlights: Highlight[] = [
 export const heroActions: HeroAction[] = [
   { label: "View projects", href: "#projects", variant: "primary" },
   {
-    label: "Download resume",
-    href: "https://bavaharsan.dev/resume.pdf",
+    label: "Connect",
+    href: "#contact",
     variant: "ghost",
-    external: true,
   },
 ];
 
@@ -92,7 +92,7 @@ export const heroHeadline =
   "Hey there, I'm Bav.";
 
 export const aboutContent = [
-  "As a software engineer, I aim to deliver intuitive, performant and accessible web applications. I want to solve complex problems, and craft innovative experiences that go above and beyond. With a background in both front-end and back-end development, I enjoy working across the full stack to build cohesive products.",
+  "I'm currently working as a software engineer at Sky, and have a Masters degree in Mechanical Engineering from Imperial College London. I aim to deliver intuitive, performant and accessible web applications. I want to solve complex problems, and craft innovative experiences that go above and beyond.",
   "Outside of code, I enjoy making art and music. I wish to bring elements of creativity and playfulness into my work, and build products that bring smiles to people's faces.",
 ];
 
@@ -100,26 +100,39 @@ export const experiences: Experience[] = [
   {
     role: "Software Engineer",
     company: "Sky",
-    period: "July 2023 — Present",
+    period: "2023 — Present",
+    logo: "sky_logo.jpeg",
     description:
-      "",
+      "Working within the Digital Technology space, I have primarily been building and maintaining high-traffic webpages on the Sky.com platform, using Next.js, React and TypeScript. I collaborate closely with designers, product managers and other engineers to deliver performant, accessible and brand-consistent experiences that are used by millions of users daily.",
     highlights: [
-      "Led the migration of data-driven Watch pages to a modern Next.js stack with app directory routing and TypeScript-first components, implementing server-side rendering for improved performance - cutting load times by 63%.",
-      "Engineered Next.js pages and components for high-impact campaigns, including the launch of Sky Glass Air and Black Friday, built for performance, accessibility and brand-consistency.",
-      "Led observability upgrades within our Next.js apps, including implementing server-side logs surfaced through Kibana/Grafana dashboards, and migrating our monitoring solution from Dynatrace to OpenTelemetry.",
-      "Re-architected Playwright automation test suite implementing GraphQL API mocking to cut out dependencies on external data, stabilising CI/CD pipeline and cutting runtime from 30 to 5 minutes."
+      // "Led the migration of data-driven Watch pages to a modern Next.js stack with app directory routing and TypeScript-first components, implementing server-side rendering for improved performance - cutting load times by 63%.",
+      // "Engineered Next.js pages and components for high-impact campaigns, including the launch of Sky Glass Air and Black Friday, built for performance, accessibility and brand-consistency.",
+      // "Led observability upgrades within our Next.js apps, including implementing server-side logs surfaced through Kibana/Grafana dashboards, and migrating our monitoring solution from Dynatrace to OpenTelemetry.",
+      // "Re-architected Playwright automation test suite implementing GraphQL API mocking to cut out dependencies on external data, stabilising CI/CD pipeline and cutting runtime from 30 to 5 minutes."
     ],
   },
   {
     role: "Software Engineering Associate",
     company: "Lloyds Banking Group",
-    period: "March 2023 - July 2023",
+    period: "2023",
+    logo: "lloyds_banking_group_logo.jpeg",
     description:
-      "",
-    highlights: [
       "Developed savings/investment forecast microservice (Java/Spring Boot) for LBG Mobile Banking App, allowing customers to connect savings/investments to real-life goals - rolled out to 1M+ UK customers.",
+    highlights: [
+    
     ],
   },
+  {
+    role: "MEng Mechanical Engineering",
+    company: "Imperial College London",
+    period: "2018-2022",
+    logo: "imperial_college_london_logo.jpeg",
+    description:
+      "Graduated with First Class Honours. Capstone project consisted of developing a web app to visualise the behaviour of oscillatory systems, built with Vue.js, with the aim of making complex dynamics concepts easier to understand for students studying the Dynamics course.",
+    highlights: [
+    
+    ],
+  }
 ];
 
 export const projects: Project[] = [
@@ -227,13 +240,13 @@ export const socialLinks: SocialLink[] = [
 
 export const sectionMeta = {
   about: { eyebrow: "Profile", title: "About" },
-  experience: { eyebrow: "Journey", title: "Experience" },
+  experience: { eyebrow: "Experience", title: "Journey" },
   projects: { eyebrow: "Builds", title: "Selected Projects" },
   skills: { eyebrow: "Toolkit", title: "Skills" },
 };
 
 export const contactCopy = {
-  heading: "Let’s build something memorable",
+  heading: "Let's connect",
   description:
     "I’m always interested in discussing ambitious product ideas or opportunities to join mission-driven teams.",
 };
