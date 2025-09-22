@@ -135,7 +135,7 @@ function HeroAvatar({ name }: HeroAvatarProps) {
               alt={`${name} profile picture`}
               width={240}
               height={240}
-              className="relative rounded-[3rem] object-cover hover:scale-160 transition-transform duration-500"
+              className="relative rounded-[3rem] object-cover"
               onError={() => setImageError(true)}
               priority
             />

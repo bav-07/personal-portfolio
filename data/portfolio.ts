@@ -5,6 +5,8 @@ export type Profile = {
   summary: string;
   availability: string;
   email: string;
+  github: string;
+  linkedin: string;
 };
 
 export type NavItem = {
@@ -58,6 +60,8 @@ export const profile: Profile = {
     "I'm a full-stack developer, crafting resilient web platforms that balance thoughtful design with reliable engineering.",
   availability: "Available for full-time roles and select freelance collaborations.",
   email: "bavaharsan.nagarajah@gmail.com",
+  github: "https://github.com/bav-07",
+  linkedin: "https://linkedin.com/in/bavaharsan-nagarajah",
 };
 
 export const navItems: NavItem[] = [
@@ -154,20 +158,21 @@ export const skillGroups: SkillGroup[] = [
       "React",
       "Next.js",
       "Node.js",
+      "Express",
+      "Java",
+      "Spring Boot",
       "GraphQL",
       "MongoDB",
-      "Java",
-      "Spring Boot"
     ],
   },
   {
     title: "Front-End",
     skills: [
       "Design Systems",
+      "Styled Components",
       "Responsive UI",
       "Accessibility",
-      "SSR/SSG",
-      "Styled Components",
+      "Figma",
     ],
   },
   {
@@ -175,18 +180,9 @@ export const skillGroups: SkillGroup[] = [
     skills: [
       "Playwright",
       "Jest",
-      "Unit Testing",
-      "E2E Testing",
-      "Mocking",
-    ],
-  },
-  {
-    title: "Architecture",
-    skills: [
-      "API Design",
-      "Selectors",
-      "Data Handling",
-      "Modularity",
+      "Unit Tests",
+      "E2E Tests",
+      "API Mocking",
     ],
   },
   {
@@ -194,20 +190,28 @@ export const skillGroups: SkillGroup[] = [
     skills: [
       "Git",
       "CI/CD",
-      "OTEL",
-      "Kibana",
-      "Grafana",
+      "Octopus",
+      "Concourse",
+      "Jenkins",
       "Swagger",
       "Postman",
+    ],
+  },
+  {
+    title: "Monitoring",
+    skills: [
+      "OpenTelemetry",
+      "Kibana",
+      "Grafana",
+      "Dynatrace",
     ],
   },
   {
     title: "Collaboration",
     skills: [
       "Mentoring",
-      "Pairing",
+      "Pair Programming",
       "A/B Testing",
-      "Figma",
       "Code Reviews",
     ],
   },

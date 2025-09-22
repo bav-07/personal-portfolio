@@ -487,6 +487,32 @@ body[data-theme="light"] ::selection {
   align-items: center;
 }
 
+/* Social icon links */
+.site-header__social-link {
+  background: radial-gradient(circle at 30% 25%, rgba(255,255,255,0.12), rgba(255,255,255,0.04));
+  backdrop-filter: blur(12px) saturate(1.15);
+  -webkit-backdrop-filter: blur(12px) saturate(1.15);
+  transition: background 0.35s ease, border-color 0.35s ease, color 0.3s ease, box-shadow 0.45s ease;
+  box-shadow: 0 4px 18px -8px rgba(244,114,182,0.35), 0 2px 6px -3px rgba(56,189,248,0.3);
+}
+.site-header__social-link:hover {
+  background: radial-gradient(circle at 35% 30%, rgba(255,255,255,0.22), rgba(255,255,255,0.06));
+  border-color: rgba(255,255,255,0.55) !important;
+  box-shadow: 0 6px 24px -10px rgba(244,114,182,0.45), 0 3px 10px -4px rgba(56,189,248,0.35);
+}
+[data-theme="light"] .site-header__social-link {
+  background: radial-gradient(circle at 35% 30%, rgba(255,255,255,0.8), rgba(238,232,255,0.65));
+  color: #2a1655 !important;
+  border-color: rgba(168,85,247,0.35) !important;
+  box-shadow: 0 4px 18px -8px rgba(147,112,219,0.35), 0 2px 6px -3px rgba(147,112,219,0.25);
+}
+[data-theme="light"] .site-header__social-link:hover {
+  background: radial-gradient(circle at 40% 35%, rgba(255,255,255,0.92), rgba(246,240,255,0.82));
+  border-color: rgba(124,58,237,0.55) !important;
+  color: #140a2d !important;
+  box-shadow: 0 6px 24px -10px rgba(147,112,219,0.42), 0 3px 10px -4px rgba(109,40,217,0.3);
+}
+
 body[data-theme="light"] .text-white,
 body[data-theme="light"] .text-slate-50\/95,
 body[data-theme="light"] .text-slate-100 {

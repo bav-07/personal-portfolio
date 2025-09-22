@@ -4,6 +4,7 @@ import type { NavItem, Profile } from "@/data/portfolio";
 import { getInitials } from "@/lib/get-initials";
 import { ThemeToggle } from "@/components/common/theme-toggle";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 type SiteHeaderProps = {
@@ -103,6 +104,26 @@ export function SiteHeader({ profile, navItems }: SiteHeaderProps) {
         </nav>
 
         <div className="site-header__actions flex items-center gap-3">
+          <div className="hidden md:flex items-center gap-2 pr-1">
+            <a
+              href={profile.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub profile"
+              className="site-header__social-link relative inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-white/80 hover:text-white hover:border-white/40 transition-colors"
+            >
+              <FaGithub className="h-[1.05rem] w-[1.05rem]" />
+            </a>
+            <a
+              href={profile.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn profile"
+              className="site-header__social-link relative inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-white/80 hover:text-white hover:border-white/40 transition-colors"
+            >
+              <FaLinkedin className="h-[1.05rem] w-[1.05rem]" />
+            </a>
+          </div>
           <ThemeToggle />
           {/* Mobile menu toggle */}
           <button
