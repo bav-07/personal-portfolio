@@ -24,8 +24,27 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" data-theme="dark" suppressHydrationWarning>
       <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var theme = localStorage.getItem('portfolio-theme') || 
+                    (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+                  document.documentElement.setAttribute('data-theme', theme);
+                  // Set global variable for React component to read synchronously
+                  window.__PORTFOLIO_THEME__ = theme;
+                } catch (e) {
+                  // Fallback to dark if localStorage isn't available
+                  document.documentElement.setAttribute('data-theme', 'dark');
+                  window.__PORTFOLIO_THEME__ = 'dark';
+                }
+              })();
+            `,
+          }}
+        />
         <noscript>
           <style>{`
             /* Ensure all content is visible when JavaScript is disabled */
@@ -48,6 +67,9 @@ export default function RootLayout({
             
             /* Hide the custom cursor element when JS is disabled */
             [data-cursor-glow] { display: none !important; }
+            
+            /* Hide the theme toggle when JS is disabled */
+            .site-header__toggle { display: none !important; }
             
             /* Ensure Framer Motion elements are visible */
             [data-projection-id] {

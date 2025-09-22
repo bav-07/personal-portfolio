@@ -1,8 +1,12 @@
 'use client';
 
 import { motion } from "framer-motion";
+import Image from "next/image";
+import { useState } from "react";
 import type { HeroAction, Highlight, Profile } from "@/data/portfolio";
 import { getInitials } from "@/lib/get-initials";
+import { MapPinIcon } from "@heroicons/react/24/solid";
+import { CodeBracketIcon } from "@heroicons/react/16/solid";
 
 const easeOut: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
@@ -70,7 +74,8 @@ const highlightListVariants = {
 
 const actionStyles: Record<HeroAction["variant"], string> = {
   primary:
-    "relative inline-flex items-center gap-2 rounded-full border border-white/30 bg-gradient-to-r from-sky-400/70 via-fuchsia-500/70 to-emerald-400/70 px-6 py-2 text-sm font-medium text-white shadow-[0_30px_80px_-40px_rgba(244,114,182,0.9)] transition-all duration-400 hover:border-white/60 hover:shadow-[0_40px_90px_-35px_rgba(56,189,248,0.8)]",
+    // Use custom CSS class for gradient so theme switching is deterministic.
+    "hero-btn-primary relative inline-flex items-center gap-2 rounded-full border border-white/30 px-6 py-2 text-sm font-medium text-white shadow-[0_30px_80px_-40px_rgba(244,114,182,0.9)] transition-all duration-400 hover:border-white/60 hover:shadow-[0_40px_90px_-35px_rgba(56,189,248,0.8)]",
   ghost:
     "relative inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/5 px-6 py-2 text-sm font-medium text-slate-100 transition-all duration-400 hover:border-white/45 hover:bg-white/10 hover:text-white",
 };
@@ -118,13 +123,28 @@ type HeroAvatarProps = {
 
 function HeroAvatar({ name }: HeroAvatarProps) {
   const initials = getInitials(name);
+  const [imageError, setImageError] = useState(false);
 
   return (
     <motion.div variants={contentVariants} className="relative flex h-[15rem] w-[15rem] items-center justify-center md:mr-6">
       <div className="relative flex h-full w-full items-center justify-center overflow-hidden rounded-[3.5rem] border border-white/25 bg-gradient-to-br from-white/20 via-white/6 to-transparent shadow-[0_75px_140px_-80px_rgba(244,114,182,0.85)]">
-        <span className="relative flex h-[85%] w-[85%] items-center justify-center rounded-[3rem] bg-[#070a1d]/90 font-display text-4xl font-semibold tracking-[0.4em] text-white">
-          {initials}
-        </span>
+        {!imageError ? (
+          <div className="h-[85%] w-[85%] rounded-[3rem] flex items-center justify-center overflow-hidden">
+            <Image
+              src="/me.jpg"
+              alt={`${name} profile picture`}
+              width={240}
+              height={240}
+              className="relative rounded-[3rem] object-cover hover:scale-160 transition-transform duration-500"
+              onError={() => setImageError(true)}
+              priority
+            />
+          </div>  
+        ) : (
+          <span className="relative flex h-[85%] w-[85%] items-center justify-center rounded-[3rem] bg-[#070a1d]/90 font-display text-4xl font-semibold tracking-[0.4em] text-white">
+            {initials}
+          </span>
+        )}
       </div>
     </motion.div>
   );
@@ -160,13 +180,15 @@ export function HeroSection({ profile, highlights, actions, headline }: HeroSect
         <motion.div variants={contentVariants} className="space-y-8">
           <motion.div
             variants={badgeVariants}
-            className="inline-flex items-center gap-3 rounded-full border border-white/25 bg-white/10 px-4 py-1 text-xs uppercase tracking-[0.42em] text-fuchsia-100/90"
+            className="hidden sm:inline-flex items-center gap-3 rounded-full border border-white/25 bg-white/10 px-4 py-1 text-xs uppercase tracking-[0.42em] text-fuchsia-100/90"
           >
-            <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-cyan-300" />
-            <span>{profile.title}</span>
-            {experienceCopy ? (
-              <span className="text-fuchsia-100/70">· {experienceCopy}</span>
-            ) : null}
+            <CodeBracketIcon className="h-4 w-4" aria-hidden />
+            <div className="flex gap-2 flex-col lg:flex-row">
+              <span>{profile.title}</span>
+              {experienceCopy ? (
+                <span className="text-fuchsia-100/70"><span className="hidden lg:inline">· </span>{experienceCopy}</span>
+              ) : null}
+            </div>
           </motion.div>
 
           <motion.h1
@@ -212,7 +234,7 @@ export function HeroSection({ profile, highlights, actions, headline }: HeroSect
             variants={badgeVariants}
             className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-3 py-1 text-xs font-medium text-fuchsia-100/90"
           >
-            <span className="h-1.5 w-1.5 rounded-full bg-cyan-300" aria-hidden />
+            <MapPinIcon className="h-4 w-4 pb-0.5" aria-hidden />
             {profile.location}
           </motion.span>
         </motion.div>

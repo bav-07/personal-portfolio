@@ -27,6 +27,33 @@ const CursorGlow = () => {
     height: number;
     borderRadius: number;
   } | null>(null);
+  const [isLightMode, setIsLightMode] = useState(() => {
+    // Initialize with correct theme state to prevent hydration mismatch
+    if (typeof window !== 'undefined') {
+      return document.documentElement.getAttribute('data-theme') === 'light';
+    }
+    return false; // SSR fallback
+  });
+
+  // Observe theme changes on root element
+  useEffect(() => {
+    const checkTheme = () => {
+      const root = document.documentElement;
+      const isLight = root.getAttribute('data-theme') === 'light';
+      setIsLightMode(isLight);
+    };
+    
+    // Check immediately in case theme was set by the blocking script
+    checkTheme();
+    
+    const observer = new MutationObserver(checkTheme);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-theme']
+    });
+    
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(pointer: fine)");
@@ -392,11 +419,17 @@ const CursorGlow = () => {
           width: "100vw",
           height: "100vh",
           pointerEvents: "none",
-          backgroundImage: `
-            linear-gradient(0deg, rgba(210, 218, 255, 0.3) 1.35px, transparent 0),
-            linear-gradient(90deg, rgba(210, 218, 255, 0.3) 1.35px, transparent 0),
-            radial-gradient(circle, rgba(148, 163, 184, 0.28) 1px, transparent 0)
-          `,
+          backgroundImage: isLightMode 
+            ? `
+              linear-gradient(0deg, rgba(71, 85, 105, 0.4) 1.35px, transparent 0),
+              linear-gradient(90deg, rgba(71, 85, 105, 0.4) 1.35px, transparent 0),
+              radial-gradient(circle, rgba(51, 65, 85, 0.35) 1px, transparent 0)
+            `
+            : `
+              linear-gradient(0deg, rgba(210, 218, 255, 0.3) 1.35px, transparent 0),
+              linear-gradient(90deg, rgba(210, 218, 255, 0.3) 1.35px, transparent 0),
+              radial-gradient(circle, rgba(148, 163, 184, 0.28) 1px, transparent 0)
+            `,
           backgroundSize: "80px 80px, 80px 80px, 80px 80px",
           backgroundPosition: "0 0, 0 0, 40px 40px",
           maskImage: `radial-gradient(circle ${glowDiameter * 1.2}px at ${glowCoordinates.x}px ${glowCoordinates.y}px, 
@@ -407,11 +440,62 @@ const CursorGlow = () => {
             black 0%, 
             black 40%, 
             transparent 80%)`,
-          opacity: isVisible ? 0.1 : 0,
+          opacity: isVisible ? (isLightMode ? 0.12 : 0.1) : 0,
           transition: "opacity 400ms ease, mask-image 200ms ease, -webkit-mask-image 200ms ease",
           zIndex: -1, // Behind all content including sections
         }}
       />
+      
+      {/* Vibrant blue/pink gradient overlay that follows the glow */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: "100vw",
+          height: "100vh",
+          pointerEvents: "none",
+          background: isLightMode 
+            ? `
+              radial-gradient(circle at 30% 20%, rgba(84, 234, 234, 0.8), transparent 50%),
+              radial-gradient(circle at 80% 80%, rgba(255, 119, 198, 0.8), transparent 50%),
+              radial-gradient(circle at 40% 40%, rgba(172, 101, 228, 0.7), transparent 50%),
+              linear-gradient(135deg, 
+                rgba(147, 234, 234, 0.4) 0%, 
+                rgba(6, 182, 212, 0.5) 25%, 
+                rgba(16, 185, 129, 0.3) 50%, 
+                rgba(245, 101, 101, 0.4) 75%, 
+                rgba(236, 72, 153, 0.4) 100%
+              )
+            `
+            : `
+              radial-gradient(circle at 30% 20%, rgba(80, 79, 138, 0.5), transparent 50%),
+              radial-gradient(circle at 80% 80%, rgba(180, 79, 138, 0.5), transparent 50%),
+              radial-gradient(circle at 40% 40%, rgba(24, 141, 168, 0.4), transparent 50%),
+              linear-gradient(135deg, 
+                rgba(97, 31, 154, 0.25) 0%, 
+                rgba(4, 122, 142, 0.3) 25%, 
+                rgba(12, 125, 89, 0.2) 50%, 
+                rgba(165, 71, 71, 0.25) 75%, 
+                rgba(156, 52, 103, 0.25) 100%
+              )
+            `,
+          maskImage: `radial-gradient(circle ${glowDiameter * 1.3}px at ${glowCoordinates.x}px ${glowCoordinates.y}px, 
+            black 0%, 
+            black 30%, 
+            transparent 70%)`,
+          WebkitMaskImage: `radial-gradient(circle ${glowDiameter * 1.3}px at ${glowCoordinates.x}px ${glowCoordinates.y}px, 
+            black 0%, 
+            black 30%, 
+            transparent 70%)`,
+          opacity: isVisible ? isLightMode ? 0.4 : 0.2 : 0,
+          mixBlendMode: isLightMode ? "multiply" : "screen",
+          transition: "opacity 600ms ease, mask-image 250ms ease, -webkit-mask-image 250ms ease",
+          zIndex: -1, // Behind all content including sections
+        }}
+      />
+      
       {/* Base fluid glow */}
       <div
         aria-hidden="true"
@@ -484,14 +568,18 @@ const CursorGlow = () => {
             ? `translate3d(${hoveredElement.x - coordinates.x}px, ${hoveredElement.y - coordinates.y}px, 0) translate3d(-50%, -50%, 0) scale(${isPointerDown ? 0.95 : 1})`
             : `translate3d(-50%, -50%, 0) scale(${isPointerDown ? 0.95 : 1})`,
           borderRadius: hoveredElement ? `${variantBorderRadius}px` : `${variantBorderRadius}px`,
-          border: `1px solid rgba(255, 255, 255, ${variant === "pointer" || variant === "nav" ? 1.0 : 0.9})`,
+          border: isLightMode 
+            ? `1px solid rgba(32, 18, 63, ${variant === "pointer" || variant === "nav" ? 0.9 : 0.75})`
+            : `1px solid rgba(255, 255, 255, ${variant === "pointer" || variant === "nav" ? 1.0 : 0.9})`,
           backgroundColor: isPointerDown 
-            ? `rgba(255, 255, 255, ${variant === "pointer" ? 0.3 : 0.2})`
-            : `transparent`,
+            ? (isLightMode 
+                ? `rgba(32, 18, 63, ${variant === "pointer" ? 0.2 : 0.12})`
+                : `rgba(255, 255, 255, ${variant === "pointer" ? 0.3 : 0.2})`)
+            : 'transparent',
           opacity: isVisible ? 1 : 0,
           transition:
             "width 400ms cubic-bezier(0.25, 0.1, 0.25, 1), height 400ms cubic-bezier(0.25, 0.1, 0.25, 1), border-radius 600ms cubic-bezier(0.25, 0.1, 0.25, 1), opacity 400ms cubic-bezier(0.25, 0.1, 0.25, 1), transform 300ms cubic-bezier(0.25, 0.1, 0.25, 1)",
-          mixBlendMode: "screen",
+          mixBlendMode: isLightMode ? "normal" : "screen",
           zIndex: variant === "nav" ? 100 : 60,
           // Debug border to see if it's expanding (disabled for performance)
           // boxShadow: hoveredElement ? '0 0 0 2px red' : 'none',

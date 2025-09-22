@@ -23,7 +23,7 @@ export function SectionHeader({ eyebrow, title }: SectionHeaderProps) {
       <span className="inline-flex items-center gap-3 text-xs uppercase tracking-[0.45em] text-fuchsia-200/80">
         <span
           aria-hidden
-          className="h-px w-10 rounded-full bg-gradient-to-r from-fuchsia-400/70 via-sky-300/80 to-transparent"
+          className="section-header__rule-top h-px w-10 rounded-full bg-gradient-to-r from-fuchsia-400/70 via-sky-300/80 to-transparent"
         />
         {eyebrow}
       </span>
@@ -32,7 +32,7 @@ export function SectionHeader({ eyebrow, title }: SectionHeaderProps) {
       </h2>
       <div
         aria-hidden
-        className="h-px w-24 rounded-full bg-gradient-to-r from-fuchsia-300/70 via-white/80 to-cyan-300/50"
+        className="section-header__rule-bottom h-px w-24 rounded-full bg-gradient-to-r from-fuchsia-300/70 via-white/80 to-cyan-300/50"
       />
     </motion.div>
   );
