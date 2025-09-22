@@ -49,7 +49,7 @@ function ExperienceHighlight({ text, className }: ExperienceHighlightProps) {
   return (
     <motion.li
       variants={highlightVariants}
-      className={"relative overflow-hidden rounded-2xl border border-white/25 bg-white/10 px-4 py-3 text-sm leading-relaxed text-slate-100 " + (className || "")}
+      className={"glass-highlight relative overflow-hidden rounded-2xl px-4 py-3 text-sm leading-relaxed text-slate-100 " + (className || "")}
     >
       <span
         aria-hidden
@@ -62,12 +62,14 @@ function ExperienceHighlight({ text, className }: ExperienceHighlightProps) {
 
 function ExperienceCard({ experience }: ExperienceCardProps) {
   return (
-    <motion.li variants={cardVariants} className="relative pl-12 sm:pl-14">
-      <span
-        aria-hidden
-        className="absolute left-0 top-3 flex h-6 w-6 items-center justify-center rounded-full border border-fuchsia-300/50 bg-[#070c26] shadow-[0_30px_70px_-45px_rgba(244,114,182,0.7)]"
-      >
-        <span className="h-2 w-2 rounded-full bg-cyan-300" />
+    <motion.li variants={cardVariants} className="relative pl-16 sm:pl-[4.5rem]">
+      {/* Timeline node */}
+      <span aria-hidden className="timeline-node">
+        <span className="timeline-node__ring" />
+        <span className="timeline-node__core-wrapper">
+          <span className="timeline-node__core-glow" />
+          <span className="timeline-node__core" />
+        </span>
       </span>
       <article className="relative overflow-hidden rounded-[2rem] border border-white/20 bg-white/[0.08] p-7 transition-colors duration-300 hover:border-fuchsia-200/70 hover:bg-white/[0.12]">
         <span
@@ -123,7 +125,7 @@ export function ExperienceSection({ eyebrow, title, experiences }: ExperienceSec
 
           <motion.ol
             variants={cardVariants}
-            className="relative mt-6 space-y-10 before:absolute before:left-3 before:top-4 before:h-[calc(100%-1.5rem)] before:w-px before:bg-gradient-to-b from-fuchsia-300/40 via-white/10 to-transparent"
+            className="experience-timeline relative mt-6 space-y-12"
           >
             {experiences.map((experienceItem) => (
               <ExperienceCard

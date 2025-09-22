@@ -92,7 +92,7 @@ export function ContactSection({ heading, description, socialLinks, email }: Con
     >
       <motion.div
         variants={contentVariants}
-        className="relative isolate overflow-hidden rounded-[2.75rem] border border-white/35 bg-gradient-to-br from-fuchsia-400/30 via-[#060a21]/85 to-transparent px-10 py-12 text-center shadow-[0_80px_160px_-90px_rgba(244,114,182,0.8)]"
+        className="contact-section relative isolate overflow-hidden rounded-[2.75rem] border border-white/35 bg-gradient-to-br from-fuchsia-400/30 via-[#060a21]/85 to-transparent px-10 py-12 text-center shadow:[0_80px_160px_-90px_rgba(244,114,182,0.8)] shadow-[0_80px_160px_-90px_rgba(244,114,182,0.8)]"
       >
         <div
           aria-hidden

@@ -55,7 +55,7 @@ export const profile: Profile = {
   title: "Software Engineer",
   location: "Based in London, UK",
   summary:
-    "I craft resilient web platforms that balance thoughtful design with reliable engineering. With a focus on TypeScript, modern React patterns, and cloud-native tooling, I deliver interfaces that feel effortless to use.",
+    "I'm a full-stack developer, crafting resilient web platforms that balance thoughtful design with reliable engineering.",
   availability: "Available for full-time roles and select freelance collaborations.",
   email: "bavaharsan.nagarajah@gmail.com",
 };
@@ -88,8 +88,8 @@ export const heroHeadline =
   "Hey there, I'm Bav.";
 
 export const aboutContent = [
-  "I thrive in collaborative environments where shipping is the default. From pairing with designers to aligning with product partners, I help teams untangle complex requirements and deliver polished experiences quickly.",
-  "Outside of work you can find me experimenting with generative art, writing about engineering craft, and mentoring early-career developers navigating their first roles.",
+  "As a software engineer, I aim to deliver intuitive, performant and accessible web applications. I want to solve complex problems, and craft innovative experiences that go above and beyond. With a background in both front-end and back-end development, I enjoy working across the full stack to build cohesive products.",
+  "Outside of code, I enjoy making art and music. I wish to bring elements of creativity and playfulness into my work, and build products that bring smiles to people's faces.",
 ];
 
 export const experiences: Experience[] = [
@@ -111,7 +111,7 @@ export const experiences: Experience[] = [
     company: "Lloyds Banking Group",
     period: "March 2023 - July 2023",
     description:
-      "Prototyped internal tooling and automation workflows that accelerated deployment feedback loops for the engineering team.",
+      "",
     highlights: [
       "Developed savings/investment forecast microservice (Java/Spring Boot) for LBG Mobile Banking App, allowing customers to connect savings/investments to real-life goals - rolled out to 1M+ UK customers.",
     ],
@@ -120,58 +120,100 @@ export const experiences: Experience[] = [
 
 export const projects: Project[] = [
   {
-    name: "Pulseboard",
+    name: "Financial Management API",
+    year: "2025",
+    description:
+      "A full-stack API for managing income and expenses, featuring JWT authentication, MongoDB persistence, and savings calculations. Built to practice clean architecture, controller testing, and TypeScript best practices.",
+    stack: ["TypeScript", "Node.js", "Express", "MongoDB", "JWT", "Mongoose"],
+    link: "https://github.com/bav-07/expense-tracker-api"
+  },
+  {
+    name: "Kabutops Trumps",
     year: "2024",
     description:
-      "A modular product analytics workspace with live data tiles, custom reports, and collaborative annotations for distributed teams.",
-    stack: ["Next.js", "TypeScript", "tRPC", "Tailwind CSS"],
-    link: "https://pulseboard.app",
+      "A Pokémon-themed Top Trumps game where users compare stats across cards to win rounds. Developed as a collaborative React project, focusing on state management and interactive UI.",
+    stack: ["JavaScript", "React", "CSS", "Java", "Spring Boot", "Tailwind"],
+    link: "https://github.com/bav-07/KabutopsTrumpsFrontEnd"
   },
   {
-    name: "Shiftform",
-    year: "2023",
+    name: "Movie Reviews",
+    year: "2024",
     description:
-      "Form experience toolkit with accessible components, validation flows, and analytics hooks for rapid product experiments.",
-    stack: ["React", "Zod", "Framer Motion", "Vercel"],
-    link: "https://shiftform.dev",
-  },
-  {
-    name: "Bav UI",
-    year: "2022",
-    description:
-      "An open-source component library that pairs expressive motion with pragmatic defaults for enterprise dashboards.",
-    stack: ["Storybook", "Radix UI", "Tailwind CSS", "Vitest"],
-    link: "https://github.com/bav-07/bav-ui",
-  },
+      "A movie review platform with search functionality, and the ability to post and manage reviews. Designed to explore full-stack app development with modern front-end practices.",
+    stack: ["JavaScript", "React", "CSS", "Node.js"],
+    link: "https://github.com/bav-07/json-statham-front-end"
+  }
 ];
+
 
 export const skillGroups: SkillGroup[] = [
   {
     title: "Core Stack",
     skills: [
       "TypeScript",
-      "React & Next.js",
+      "React",
+      "Next.js",
       "Node.js",
-      "tRPC",
-      "PostgreSQL",
-      "Prisma",
+      "GraphQL",
+      "MongoDB",
+      "Java",
+      "Spring Boot"
     ],
   },
   {
-    title: "Experience",
+    title: "Front-End",
     skills: [
       "Design Systems",
-      "API Design",
-      "Testing & Automation",
-      "Performance Optimization",
+      "Responsive UI",
       "Accessibility",
+      "SSR/SSG",
+      "Styled Components",
+    ],
+  },
+  {
+    title: "Testing",
+    skills: [
+      "Playwright",
+      "Jest",
+      "Unit Testing",
+      "E2E Testing",
+      "Mocking",
+    ],
+  },
+  {
+    title: "Architecture",
+    skills: [
+      "API Design",
+      "Selectors",
+      "Data Handling",
+      "Modularity",
     ],
   },
   {
     title: "Tooling",
-    skills: ["Git & GitHub", "Docker", "Vercel", "AWS", "Grafana"],
+    skills: [
+      "Git",
+      "CI/CD",
+      "OTEL",
+      "Kibana",
+      "Grafana",
+      "Swagger",
+      "Postman",
+    ],
+  },
+  {
+    title: "Collaboration",
+    skills: [
+      "Mentoring",
+      "Pairing",
+      "A/B Testing",
+      "Figma",
+      "Code Reviews",
+    ],
   },
 ];
+
+
 
 export const socialLinks: SocialLink[] = [
   { label: "LinkedIn", href: "https://linkedin.com/in/bavaharsan-nagarajah" },

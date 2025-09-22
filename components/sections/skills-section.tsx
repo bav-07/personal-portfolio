@@ -43,7 +43,7 @@ function SkillPill({ name }: SkillPillProps) {
   return (
     <motion.li
       variants={cardVariants}
-      className="relative overflow-hidden rounded-full border border-white/20 bg-white/10 px-3 py-1 text-sm text-fuchsia-100"
+      className="glass-highlight relative overflow-hidden rounded-full px-3 py-1 text-sm text-fuchsia-100"
     >
       <span
         aria-hidden

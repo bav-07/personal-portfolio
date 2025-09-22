@@ -347,7 +347,7 @@ const CursorGlow = () => {
       borderRadius: number;
     }> = {
       default: {
-        glowDiameter: 800, // Increased from 360
+        glowDiameter: 820, // Unified base size
         glowColor: "255, 119, 214",
         glowOpacity: 0.25, // Slightly increased
         cursorSize: 14,
@@ -355,7 +355,7 @@ const CursorGlow = () => {
         borderRadius: 7, // Half of cursorSize for perfect circle
       },
       pointer: {
-        glowDiameter: 900, // Increased from 420
+        glowDiameter: 820, // Unified (remove hover enlargement perception)
         glowColor: "255, 119, 214",
         glowOpacity: 0.35, // Increased
         cursorSize: 18,
@@ -363,7 +363,7 @@ const CursorGlow = () => {
         borderRadius: 32, // Pill shape for buttons
       },
       text: {
-        glowDiameter: 700, // Increased from 280
+        glowDiameter: 820, // Unified for consistency
         glowColor: "56, 189, 248",
         glowOpacity: 0.3, // Increased
         cursorSize: 10,
@@ -371,7 +371,7 @@ const CursorGlow = () => {
         borderRadius: 5, // Half of cursorSize for perfect circle
       },
       nav: {
-        glowDiameter: 750, // Increased from 320
+        glowDiameter: 820, // Unified
         glowColor: "255, 255, 255",
         glowOpacity: 0.2, // Slightly increased
         cursorSize: 16,
@@ -383,38 +383,31 @@ const CursorGlow = () => {
     return variantSettings[variant];
   }, [variant]);
 
-  // Dynamic goo-like shape calculation - optimized for performance
+  // Goo-like shape: velocity stretch only (no hover enlargement) + subtle organic wobble
   const glowStyle = useMemo(() => {
-    const time = Date.now() * 0.001;
-    
-    // Simplified velocity calculation
-    const velocityX = glowCoordinates.x - coordinates.x;
-    const velocityY = glowCoordinates.y - coordinates.y;
-    const velocity = Math.sqrt(velocityX * velocityX + velocityY * velocityY);
-    
-    // Dynamic size based on movement and hovered element
-    let baseSize = 800;
-    if (hoveredElement) {
-      // Simpler calculation for better performance
-      baseSize = Math.max(800, Math.max(hoveredElement.width, hoveredElement.height) * 2.5);
-    }
-    
-    const stretchFactor = Math.min(velocity * 0.2, 30); // Reduced complexity
-    const width = baseSize + stretchFactor;
-    const height = baseSize - stretchFactor * 0.2;
-    
-    // Simplified distortion for better performance
-    const distortX = Math.sin(time * 1.8) * 0.1;
-    const distortY = Math.cos(time * 1.6) * 0.1;
-    
+    const t = Date.now() * 0.001;
+    const vx = glowCoordinates.x - coordinates.x;
+    const vy = glowCoordinates.y - coordinates.y;
+    const speed = Math.sqrt(vx * vx + vy * vy);
+
+    const base = glowDiameter; // unified base size
+    // Stronger stretch for goo feel
+    const stretch = Math.min(speed * 0.55, 180); // higher multiplier & cap
+    const width = base + stretch;
+    const height = base - stretch * 0.32; // more flattening
+
+    // Organic pulsation independent of hover (very subtle)
+    const wobbleScaleX = 1 + Math.sin(t * 1.6) * 0.06 + Math.sin(t * 3.3) * 0.025;
+    const wobbleScaleY = 1 + Math.cos(t * 1.4) * 0.05 + Math.sin(t * 2.9) * 0.02;
+    const angle = vx * 0.045; // slight orientation
+
     return {
-      width: width,
-      height: height,
-      transform: `translate3d(-50%, -50%, 0) scale(${1 + distortX}, ${1 + distortY}) rotate(${velocityX * 0.05}deg)`,
-      // Reduced brightness of the base glow
-      baseOpacity: hoveredElement ? 0.45 : 0.35,
+      width,
+      height,
+      transform: `translate3d(-50%, -50%, 0) scale(${wobbleScaleX}, ${wobbleScaleY}) rotate(${angle}deg)`,
+      baseOpacity: 0.38, // constant (no hover bump)
     };
-  }, [glowCoordinates, coordinates, hoveredElement]); // Removed isPointerDown to reduce recalculations
+  }, [glowCoordinates, coordinates, glowDiameter]);
 
   if (!isFinePointer) {
     return null;

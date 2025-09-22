@@ -47,7 +47,7 @@ function TechBadge({ name }: TechBadgeProps) {
   return (
     <motion.li
       variants={cardVariants}
-      className="rounded-full border border-white/25 bg-white/10 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.38em] text-fuchsia-100"
+      className="glass-highlight rounded-full px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.38em] text-fuchsia-100"
     >
       {name}
     </motion.li>

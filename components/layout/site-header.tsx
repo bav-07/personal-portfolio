@@ -124,7 +124,7 @@ export function SiteHeader({ profile, navItems }: SiteHeaderProps) {
         className={`md:hidden fixed backdrop-blur-3xl mx-6 sm:mx-10 rounded-3xl left-0 right-0 top-[calc(var(--header-offset,0px)+5.75rem)] z-40 transition-[opacity,transform,translate] duration-300 ${mobileOpen ? 'pointer-events-auto opacity-100 translate-y-0' : 'pointer-events-none opacity-0 -translate-y-2'}`}
         aria-hidden={!mobileOpen}
       >
-        <div className="relative max-w-5xl overflow-hidden rounded-3xl border border-white/20 bg-gradient-to-br from-white/15 via-white/8 to-transparent  px-6 py-6 shadow-[0_50px_120px_-60px_rgba(244,114,182,0.55)]">
+        <div className="mobile-nav__panel relative max-w-5xl overflow-hidden rounded-3xl border border-white/20 bg-gradient-to-br from-white/15 via-white/8 to-transparent px-6 py-6 shadow-[0_50px_120px_-60px_rgba(244,114,182,0.55)]">
           <ul className="flex flex-col gap-2" role="menu">
             {navItems.map((item, idx) => (
               <li key={item.href} role="none">
@@ -132,7 +132,7 @@ export function SiteHeader({ profile, navItems }: SiteHeaderProps) {
                   ref={idx === 0 ? firstLinkRef : undefined}
                   role="menuitem"
                   onClick={closeMobile}
-                  className="group flex w-full items-center justify-between rounded-full px-4 py-3 text-sm font-semibold text-white/90 hover:text-white hover:bg-white/10 transition-colors"
+                  className="mobile-nav__link group flex w-full items-center justify-between rounded-full px-4 py-3 text-sm font-semibold text-white/90 hover:text-white hover:bg-white/10 transition-colors"
                   href={item.href}
                 >
                   <span>{item.label}</span>
