@@ -35,6 +35,19 @@ const CursorGlow = () => {
     return false; // SSR fallback
   });
 
+  // Track whether mobile nav is open (set as a body attribute by SiteHeader)
+  const [isNavMenuOpen, setIsNavMenuOpen] = useState(false);
+  useEffect(() => {
+    const observer = new MutationObserver(() => {
+      const attr = document.body.getAttribute('data-nav-open') === 'true';
+      setIsNavMenuOpen(attr);
+    });
+    observer.observe(document.body, { attributes: true, attributeFilter: ['data-nav-open'] });
+    // Initialize
+    setIsNavMenuOpen(document.body.getAttribute('data-nav-open') === 'true');
+    return () => observer.disconnect();
+  }, []);
+
   // Observe theme changes on root element
   useEffect(() => {
     const checkTheme = () => {
@@ -440,7 +453,7 @@ const CursorGlow = () => {
             black 0%, 
             black 40%, 
             transparent 80%)`,
-          opacity: isVisible ? (isLightMode ? 0.12 : 0.1) : 0,
+          opacity: isNavMenuOpen ? 0 : (isVisible ? (isLightMode ? 0.12 : 0.1) : 0),
           transition: "opacity 400ms ease, mask-image 200ms ease, -webkit-mask-image 200ms ease",
           zIndex: -1, // Behind all content including sections
         }}
@@ -489,8 +502,9 @@ const CursorGlow = () => {
             black 0%, 
             black 30%, 
             transparent 70%)`,
-          opacity: isVisible ? isLightMode ? 0.4 : 0.2 : 0,
-          mixBlendMode: isLightMode ? "multiply" : "screen",
+          opacity: isNavMenuOpen ? 0 : (isVisible ? (isLightMode ? 0.4 : 0.2) : 0),
+          // Disable blend mode when nav menu open to avoid global brightness shift
+          mixBlendMode: isNavMenuOpen ? "normal" : (isLightMode ? "multiply" : "screen"),
           transition: "opacity 600ms ease, mask-image 250ms ease, -webkit-mask-image 250ms ease",
           zIndex: -1, // Behind all content including sections
         }}
@@ -521,9 +535,9 @@ const CursorGlow = () => {
               rgba(255, 255, 255, 0.03) 90%, 
               rgba(255, 255, 255, 0.015) 95%, 
               transparent 100%)`,
-            opacity: isVisible ? 1 : 0,
+            opacity: isNavMenuOpen ? 0 : (isVisible ? 1 : 0),
             transition: "opacity 400ms ease",
-            mixBlendMode: "overlay",
+            mixBlendMode: isNavMenuOpen ? (isLightMode ? 'normal' : 'screen') : 'overlay',
             zIndex: 20,
             filter: `blur(60px)`, // Reduced blur to match lower brightness
         }}
@@ -547,9 +561,9 @@ const CursorGlow = () => {
             rgba(255, 255, 255, 0.06) 50%, 
             rgba(255, 255, 255, 0.035) 70%, 
             transparent 85%)`,
-          opacity: isVisible && showClickGlow ? 0.85 : 0,
+          opacity: isNavMenuOpen ? 0 : (isVisible && showClickGlow ? 0.85 : 0),
           transition: "opacity 800ms cubic-bezier(0.25, 0.1, 0.25, 1), filter 600ms ease-out, width 400ms ease-out, height 400ms ease-out",
-          mixBlendMode: "overlay",
+          mixBlendMode: isNavMenuOpen ? (isLightMode ? 'normal' : 'screen') : 'overlay',
           zIndex: 21,
           filter: `blur(${showClickGlow ? 60 : 80}px)`, // Increased from 25/30px
         }}

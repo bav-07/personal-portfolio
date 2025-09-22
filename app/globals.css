@@ -168,6 +168,64 @@ body::after {
   z-index: -1;
 }
 
+/* Mobile nav link overrides */
+[data-theme="light"] .mobile-nav__link,
+:root[data-theme="light"] .mobile-nav__link {
+  color: var(--light-text-primary);
+  text-shadow: 0 1px 0 rgba(255,255,255,0.6);
+}
+
+[data-theme="light"] .mobile-nav__link:hover,
+:root[data-theme="light"] .mobile-nav__link:hover {
+  color: #1a0f38;
+  /* background: rgba(255,255,255,0.1); */
+}
+
+[data-theme="light"] .mobile-nav__link:focus-visible,
+:root[data-theme="light"] .mobile-nav__link:focus-visible {
+  outline: 2px solid rgba(124,58,237,0.55);
+  outline-offset: 2px;
+}
+
+[data-theme="light"] .mobile-nav__link .h-px { /* underline accent bar inside link */
+  background-image: linear-gradient(90deg, rgba(147,112,219,0.85), rgba(56,189,248,0.75), rgba(0,0,0,0));
+}
+
+/* Dark mode explicit hover for mobile nav link (kept subtle) */
+.mobile-nav__link:hover {
+  background: rgba(255,255,255,0.08);
+}
+
+/* Light mode hover override (so it doesn't get overridden to pure white) */
+[data-theme="light"] .mobile-nav__link:hover,
+:root[data-theme="light"] .mobile-nav__link:hover {
+  /* Slightly dimmer + tinted vs pure white so it doesn't read as a flash */
+  background: linear-gradient(120deg, rgba(248,246,255,0.8), rgba(236,243,255,0.3));
+  box-shadow: 0 2px 5px -2px rgba(31,41,55,0.08), 0 6px 22px -8px rgba(109,40,217,0.28);
+  /* border: 1px solid rgba(168,85,247,0.28); */
+}
+
+/* Active / pressed state (optional subtle feedback) */
+.mobile-nav__link:active {
+  transform: translateY(1px);
+}
+[data-theme="light"] .mobile-nav__link:active {
+  background: linear-gradient(120deg, rgba(245,242,255,0.92), rgba(230,240,255,0.84));
+  box-shadow: 0 3px 10px -4px rgba(31,41,55,0.15), 0 4px 14px -6px rgba(109,40,217,0.32);
+}
+
+/* Smooth transitions for mobile nav links */
+.mobile-nav__link {
+  transition: background 240ms ease, box-shadow 260ms ease, border-color 220ms ease, color 180ms ease, transform 120ms ease;
+  will-change: background, box-shadow, transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mobile-nav__link {
+    transition: background 0.001s linear, color 0.001s linear, box-shadow 0.001s linear, transform 0.001s linear;
+  }
+}
+
 /* Moved anchor baseline styling into Tailwind base layer so that
    utility classes (text-*) can properly override color */
 @layer base {
@@ -252,10 +310,9 @@ body[data-theme="light"] ::selection {
 }
 
 .site-header__toggle {
-  display: inline-flex;
+  /* Remove fixed display so responsive utility (md:hidden etc.) can control visibility */
   align-items: center;
   gap: 0.5rem;
-  /* border: 0px solid var(--header-toggle-border); */
   border-radius: 9999px;
   padding: 0.4rem;
   background: var(--header-toggle-bg);

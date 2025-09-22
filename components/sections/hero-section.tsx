@@ -176,20 +176,20 @@ export function HeroSection({ profile, highlights, actions, headline }: HeroSect
         className="pointer-events-none absolute -left-28 -bottom-8 -z-20 h-[360px] w-[360px] rounded-full bg-[radial-gradient(circle_at_bottom,_rgba(56,189,248,0.28),_transparent_70%)] opacity-80 blur-[130px]"
       />
 
+      <motion.div
+        variants={badgeVariants}
+        className="hidden sm:inline-flex mb-6 items-center gap-3 rounded-full border border-white/25 bg-white/10 px-4 py-1 text-xs uppercase tracking-[0.32em] text-fuchsia-100/90"
+      >
+        <CodeBracketIcon className="h-4 w-4" aria-hidden />
+        <div className="flex gap-2 flex-row">
+          <span>{profile.title}</span>
+          {experienceCopy ? (
+            <span className="text-fuchsia-100/70">· {experienceCopy}</span>
+          ) : null}
+        </div>
+      </motion.div>
       <div className="relative grid gap-12 md:grid-cols-[minmax(0,1fr)_auto] md:items-center">
         <motion.div variants={contentVariants} className="space-y-8">
-          <motion.div
-            variants={badgeVariants}
-            className="hidden sm:inline-flex items-center gap-3 rounded-full border border-white/25 bg-white/10 px-4 py-1 text-xs uppercase tracking-[0.42em] text-fuchsia-100/90"
-          >
-            <CodeBracketIcon className="h-4 w-4" aria-hidden />
-            <div className="flex gap-2 flex-col lg:flex-row">
-              <span>{profile.title}</span>
-              {experienceCopy ? (
-                <span className="text-fuchsia-100/70"><span className="hidden lg:inline">· </span>{experienceCopy}</span>
-              ) : null}
-            </div>
-          </motion.div>
 
           <motion.h1
             variants={contentVariants}
