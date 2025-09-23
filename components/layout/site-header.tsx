@@ -33,8 +33,58 @@ function NavLink({ href, label }: NavLinkProps) {
 export function SiteHeader({ profile, navItems }: SiteHeaderProps) {
   const initials = getInitials(profile.name);
   const [mobileOpen, setMobileOpen] = useState(false);
+  // Mobile header visibility (auto-hide while scrolling, show after inactivity)
+  const [mobileHeaderVisible, setMobileHeaderVisible] = useState(true);
   const panelRef = useRef<HTMLDivElement | null>(null);
   const firstLinkRef = useRef<HTMLAnchorElement | null>(null);
+  const inactivityTimerRef = useRef<number | null>(null);
+
+  // Ensure header reappears when mobile menu opens
+  useEffect(() => {
+    if (mobileOpen) {
+      setMobileHeaderVisible(true);
+      if (inactivityTimerRef.current) {
+        window.clearTimeout(inactivityTimerRef.current);
+        inactivityTimerRef.current = null;
+      }
+    }
+  }, [mobileOpen]);
+
+  // Scroll-driven auto hide / show (mobile only)
+  useEffect(() => {
+    const INACTIVITY_DELAY = 1500; // ms of no scroll before showing header again
+
+    function onScroll() {
+      if (window.innerWidth >= 768) return; // only apply on < md
+      if (mobileOpen) return; // keep visible while menu open
+
+      const y = window.scrollY;
+      // Always show near the very top for orientation
+      if (y < 10) {
+        if (!mobileHeaderVisible) setMobileHeaderVisible(true);
+        if (inactivityTimerRef.current) {
+          window.clearTimeout(inactivityTimerRef.current);
+          inactivityTimerRef.current = null;
+        }
+        return;
+      }
+
+      // Hide on scroll activity
+      if (mobileHeaderVisible) setMobileHeaderVisible(false);
+
+      // Reset inactivity timer to show again after delay
+      if (inactivityTimerRef.current) window.clearTimeout(inactivityTimerRef.current);
+      inactivityTimerRef.current = window.setTimeout(() => {
+        setMobileHeaderVisible(true);
+      }, INACTIVITY_DELAY);
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      if (inactivityTimerRef.current) window.clearTimeout(inactivityTimerRef.current);
+    };
+  }, [mobileHeaderVisible, mobileOpen]);
 
   // Reflect mobile nav open state on <body> so global UI (e.g., custom cursor) can adapt
   useEffect(() => {
@@ -76,7 +126,11 @@ export function SiteHeader({ profile, navItems }: SiteHeaderProps) {
   }, [mobileOpen]);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 w-full pt-4 px-6 sm:px-10">
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 w-full pt-4 px-6 sm:px-10 transition-transform duration-500 will-change-transform
+        ${!mobileHeaderVisible ? 'translate-y-[-140%] md:translate-y-0' : 'translate-y-0'}`}
+      data-mobile-auto-hide
+    >
       <div className="site-header__panel relative isolate mx-auto flex w-full max-w-5xl items-center justify-between gap-2 lg:gap-6 overflow-hidden rounded-full border px-6 py-3 backdrop-blur">
         <span
           aria-hidden
@@ -88,10 +142,10 @@ export function SiteHeader({ profile, navItems }: SiteHeaderProps) {
         />
 
         <a className="site-header__brand-link flex items-center gap-4" href="#top" data-brand-link>
-          {/* <div className="site-header__initials flex h-11 w-11 aspect-square items-center justify-center rounded-full text-sm font-semibold">
+          <div className="site-header__initials sm:hidden flex h-11 w-11 aspect-square items-center justify-center rounded-full text-sm font-semibold">
             <span className="site-header__initials-text text-xs tracking-[0.2em]">{initials}</span>
-          </div> */}
-          <div className="site-header__brand-copy text-sm leading-tight">
+          </div>
+          <div className="site-header__brand-copy hidden sm:block text-sm leading-tight">
             <p className="site-header__brand-name font-display text-base font-semibold">{profile.name}</p>
             <p className="site-header__brand-title tracking-tighter">{profile.title}</p>
           </div>
