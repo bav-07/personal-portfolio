@@ -97,7 +97,7 @@ function HeroActionButton({ action }: HeroActionButtonProps) {
 
 function HeroHighlightItem({ highlight }: HeroHighlightProps) {
   return (
-    <motion.div
+    <motion.li
       variants={highlightVariants}
       className="relative overflow-hidden rounded-2xl border border-white/20 bg-white/[0.08] px-5 py-4 shadow-[0_40px_85px_-45px_rgba(244,114,182,0.65)]"
     >
@@ -106,14 +106,14 @@ function HeroHighlightItem({ highlight }: HeroHighlightProps) {
         className="pointer-events-none absolute inset-0 bg-gradient-to-br from-fuchsia-200/40 via-transparent to-sky-200/20 opacity-70"
       />
       <div className="relative z-10 space-y-1">
-        <dt className="text-xs uppercase tracking-[0.42em] text-fuchsia-100/80">
+        <p className="text-xs uppercase tracking-[0.42em] text-fuchsia-100/80">
           {highlight.label}
-        </dt>
-        <dd className="font-display text-3xl font-semibold text-white">
+        </p>
+        <p className="font-display text-3xl font-semibold text-white">
           {highlight.value}
-        </dd>
+        </p>
       </div>
-    </motion.div>
+    </motion.li>
   );
 }
 
@@ -240,14 +240,14 @@ export function HeroSection({ profile, highlights, actions, headline }: HeroSect
         </motion.div>
       </div>
 
-      <motion.dl
+      <motion.ul
         variants={highlightListVariants}
         className="relative mt-12 grid gap-4 sm:grid-cols-3"
       >
         {highlights.map((highlight) => (
           <HeroHighlightItem key={highlight.label} highlight={highlight} />
         ))}
-      </motion.dl>
+      </motion.ul>
     </motion.section>
   );
 }
