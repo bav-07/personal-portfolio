@@ -2,6 +2,8 @@
 
 import { motion } from "framer-motion";
 import type { SocialLink } from "@/data/portfolio";
+import { MdEmail } from "react-icons/md";
+import { FaLinkedin, FaGithub, FaYoutube } from "react-icons/fa";
 
 type ContactSectionProps = {
   heading: string;
@@ -15,6 +17,13 @@ type ContactLinkProps = SocialLink;
 type ContactButtonProps = {
   email: string;
 };
+
+// Map of icon names to their components
+const iconMap = {
+  FaLinkedin,
+  FaGithub, 
+  FaYoutube,
+} as const;
 
 const easeOut: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
@@ -50,19 +59,26 @@ const linkVariants = {
   show: { opacity: 1, y: 0, transition: { duration: 0.18, ease: easeOut } },
 } as const;
 
-function ContactLink({ href, label }: ContactLinkProps) {
+function ContactLink({ href, label, icon }: ContactLinkProps) {
+  const IconComponent = iconMap[icon as keyof typeof iconMap];
+  
   return (
     <motion.a
       variants={linkVariants}
-      className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-white/25 bg-white/10 px-4 py-2 text-sm text-fuchsia-100 transition-colors duration-300 hover:border-white/45 hover:text-white"
+      className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-white/25 bg-white/10 p-3 text-sm text-fuchsia-100 transition-colors duration-300 hover:border-white/45 hover:text-white"
       href={href}
       target="_blank"
       rel="noreferrer"
+      aria-label={label}
     >
-      <span className="relative z-10">{label}</span>
+      {IconComponent && (
+        <span className="relative z-10">
+          <IconComponent size={28} />
+        </span>
+      )}
       <span
         aria-hidden
-        className="pointer-events-none absolute inset-0 bg-gradient-to-r from-fuchsia-200/35 via-transparent to-sky-200/25 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+        className="pointer-events-none absolute inset-0 bg-linear-130 from-fuchsia-200/35 via-transparent to-sky-200/25 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
       />
     </motion.a>
   );
@@ -72,10 +88,11 @@ function ContactButton({ email }: ContactButtonProps) {
   return (
     <motion.a
       variants={buttonVariants}
-      className="relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full border border-white/40 bg-gradient-to-r from-fuchsia-400/35 via-sky-400/25 to-emerald-400/35 px-6 py-3 text-sm font-medium text-white shadow-[0_45px_110px_-65px_rgba(244,114,182,0.8)] transition-all duration-500 hover:border-white/60 hover:text-white before:absolute before:inset-0 before:-z-10 before:bg-gradient-to-r before:from-fuchsia-400/45 before:via-sky-300/35 before:to-emerald-400/45 before:opacity-0 before:transition-opacity before:duration-500 before:content-[''] hover:before:opacity-100"
+      className="relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full border border-white/40 bg-linear-130 from-fuchsia-400/35 to-sky-400/25 p-3 text-sm font-medium text-white shadow-[0_45px_110px_-65px_rgba(244,114,182,0.8)] transition-all duration-500 hover:border-white/60 hover:text-white before:absolute before:inset-0 before:-z-10 before:bg-gradient-to-r before:from-fuchsia-400/45 before:to-sky-300/35 before:opacity-0 before:transition-opacity before:duration-500 before:content-[''] hover:before:opacity-100"
       href={`mailto:${email}`}
+      aria-label='Email'
     >
-      <span className="relative z-10">{email}</span>
+      <span className="relative z-10"><MdEmail size={28}/></span>
     </motion.a>
   );
 }
@@ -112,9 +129,9 @@ export function ContactSection({ heading, description, socialLinks, email }: Con
             {socialLinks.map((link) => (
               <ContactLink key={link.href} {...link} />
             ))}
+            <ContactButton email={email} />
           </motion.div>
 
-          <ContactButton email={email} />
         </motion.div>
       </motion.div>
     </motion.section>

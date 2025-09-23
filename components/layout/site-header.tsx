@@ -79,9 +79,21 @@ export function SiteHeader({ profile, navItems }: SiteHeaderProps) {
       }, INACTIVITY_DELAY);
     }
 
-    window.addEventListener('scroll', onScroll, { passive: true });
+    // Use throttling to reduce scroll event frequency and prevent rendering issues
+    let ticking = false;
+    function handleScroll() {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          onScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => {
-      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('scroll', handleScroll);
       if (inactivityTimerRef.current) window.clearTimeout(inactivityTimerRef.current);
     };
   }, [mobileHeaderVisible, mobileOpen]);
@@ -127,11 +139,24 @@ export function SiteHeader({ profile, navItems }: SiteHeaderProps) {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 w-full pt-4 px-6 sm:px-10 transition-transform duration-500 will-change-transform
-        ${!mobileHeaderVisible ? 'translate-y-[-140%] md:translate-y-0' : 'translate-y-0'}`}
+      className={`fixed top-0 left-0 right-0 z-50 w-full pt-4 px-6 sm:px-10 transition-transform duration-300 ease-out will-change-transform
+        ${!mobileHeaderVisible ? 'translate-y-[-120%] md:translate-y-0' : 'translate-y-0'}`}
       data-mobile-auto-hide
+      style={{
+        // Ensure consistent theme-aware rendering during transitions
+        colorScheme: 'inherit'
+      }}
     >
-      <div className="site-header__panel relative isolate mx-auto flex w-full max-w-5xl items-center justify-between gap-2 lg:gap-6 overflow-hidden rounded-full border px-6 py-3 backdrop-blur">
+      <div 
+        className="site-header__panel relative isolate mx-auto flex w-full max-w-5xl items-center justify-between gap-2 lg:gap-6 overflow-hidden rounded-full border px-6 py-3 backdrop-blur"
+        style={{
+          // Force consistent backdrop rendering across theme changes
+          willChange: 'background, border-color',
+          // Ensure backdrop filter doesn't interfere with theme transitions
+          backfaceVisibility: 'hidden',
+          perspective: '1000px'
+        }}
+      >
         <span
           aria-hidden
           className="site-header__halo pointer-events-none absolute inset-0 -z-20 opacity-75 transition-opacity duration-700"

@@ -410,7 +410,12 @@ body[data-theme="light"] ::selection {
   background: var(--header-panel-bg);
   border-color: var(--header-panel-border);
   box-shadow: var(--header-panel-shadow);
-  transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+  transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  /* Prevent flashing during mobile hide/show transitions */
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  /* Ensure consistent rendering across theme changes */
+  contain: layout style paint;
 }
 
 .site-header__halo {
@@ -526,6 +531,23 @@ body[data-theme="light"] ::selection {
   border-color: rgba(124,58,237,0.55) !important;
   color: #140a2d !important;
   box-shadow: 0 6px 24px -10px rgba(147,112,219,0.42), 0 3px 10px -4px rgba(109,40,217,0.3);
+}
+
+/* Mobile header auto-hide fixes */
+@media (max-width: 767px) {
+  header[data-mobile-auto-hide] {
+    /* Prevent flashing/jumping during theme switches on mobile */
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    /* Ensure smooth transitions and prevent layout shift */
+    transform-style: preserve-3d;
+  }
+  
+  /* Reduce backdrop filter complexity on mobile to prevent flashing */
+  header[data-mobile-auto-hide] .site-header__panel {
+    backdrop-filter: blur(8px) saturate(1.2);
+    -webkit-backdrop-filter: blur(8px) saturate(1.2);
+  }
 }
 
 body[data-theme="light"] .text-white,

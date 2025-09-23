@@ -1,3 +1,6 @@
+import { JSX } from 'react';
+import { FaLinkedin, FaGithub, FaYoutube } from 'react-icons/fa';
+
 export type Profile = {
   name: string;
   title: string;
@@ -44,6 +47,7 @@ export type SkillGroup = {
 export type SocialLink = {
   label: string;
   href: string;
+  icon: string;
 };
 
 export type HeroAction = {
@@ -233,9 +237,9 @@ export const skillGroups: SkillGroup[] = [
 
 
 export const socialLinks: SocialLink[] = [
-  { label: "LinkedIn", href: "https://linkedin.com/in/bavaharsan-nagarajah" },
-  { label: "GitHub", href: "https://github.com/bav-07" },
-  { label: "Youtube", href: "https://www.youtube.com/@bavdev" },
+  { label: "LinkedIn", href: "https://linkedin.com/in/bavaharsan-nagarajah", icon: "FaLinkedin" },
+  { label: "GitHub", href: "https://github.com/bav-07", icon: "FaGithub" },
+  { label: "Youtube", href: "https://www.youtube.com/@bavdev", icon: "FaYoutube" },
 ];
 
 export const sectionMeta = {
