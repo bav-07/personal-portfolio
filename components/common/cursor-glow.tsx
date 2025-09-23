@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { isMobileDevice } from "@/lib/mobile-utils";
 
 type CursorVariant = "default" | "pointer" | "text" | "nav";
 
@@ -409,7 +410,7 @@ const CursorGlow = () => {
     };
   }, [glowCoordinates, coordinates, glowDiameter]);
 
-  if (!isFinePointer) {
+  if (!isFinePointer || isMobileDevice()) {
     return null;
   }
 

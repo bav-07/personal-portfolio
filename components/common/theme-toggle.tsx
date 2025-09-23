@@ -2,6 +2,7 @@
 
 import { MoonIcon, SunIcon } from "@heroicons/react/16/solid";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { isMobileDevice } from "@/lib/mobile-utils";
 
 const STORAGE_KEY = "portfolio-theme";
 
@@ -124,7 +125,26 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
 
   const handleToggle = () => {
     userInteractedRef.current = true;
-    setTheme((current) => (current === "dark" ? "light" : "dark"));
+    const newTheme = theme === "dark" ? "light" : "dark";
+    
+    // Check if user is on a mobile device (not just small screen)
+    const isMobile = isMobileDevice();
+    
+    if (isMobile) {
+      // For mobile, set theme immediately and force a page reload
+      // to avoid rendering glitches with backdrop-filter and complex animations
+      document.documentElement.dataset.theme = newTheme;
+      document.body.dataset.theme = newTheme;
+      window.localStorage.setItem(STORAGE_KEY, newTheme);
+      
+      // Force page reload after a brief delay to allow the theme change to be visible
+      setTimeout(() => {
+        window.location.reload();
+      }, 100);
+    } else {
+      // For desktop, use the normal smooth transition
+      setTheme(newTheme);
+    }
   };
 
   return (
