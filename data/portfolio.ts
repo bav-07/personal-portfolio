@@ -3,7 +3,7 @@ export type Profile = {
   title: string;
   location: string;
   summary: string;
-  availability: string;
+  availability?: string;
   email: string;
   github: string;
   linkedin: string;
@@ -59,7 +59,7 @@ export const profile: Profile = {
   location: "Based in London, UK",
   summary:
     "I'm a full-stack developer, crafting resilient web platforms that balance thoughtful design with reliable engineering.",
-  availability: "Available for full-time roles and select freelance collaborations.",
+  // availability: "Available for full-time roles and select freelance collaborations.",
   email: "bavaharsan.nagarajah@gmail.com",
   github: "https://github.com/bav-07",
   linkedin: "https://linkedin.com/in/bavaharsan-nagarajah",

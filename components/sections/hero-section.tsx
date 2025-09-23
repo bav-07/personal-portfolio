@@ -204,7 +204,7 @@ export function HeroSection({ profile, highlights, actions, headline }: HeroSect
             {profile.summary}
           </motion.p>
 
-          <motion.div
+          {profile.availability && (<motion.div
             variants={badgeVariants}
             className="inline-flex items-center gap-3 rounded-full border border-emerald-300/40 bg-emerald-400/10 px-4 py-2 text-sm text-emerald-100"
           >
@@ -213,7 +213,7 @@ export function HeroSection({ profile, highlights, actions, headline }: HeroSect
               <span className="relative h-[6px] w-[6px] rounded-full bg-emerald-300" />
             </span>
             {profile.availability}
-          </motion.div>
+          </motion.div>)}
 
           <motion.div
             variants={contentVariants}
