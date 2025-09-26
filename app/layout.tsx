@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import CursorGlow from "@/components/common/cursor-glow";
 import { Analytics } from "@vercel/analytics/next"
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 export const metadata: Metadata = {
   title: "Bavaharsan Nagarajah | Software Engineer Portfolio",
@@ -84,6 +85,7 @@ export default function RootLayout({
         <CursorGlow />
         {children}
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
