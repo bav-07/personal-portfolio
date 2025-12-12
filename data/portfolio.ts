@@ -96,7 +96,7 @@ export const heroHeadline =
   "Hey there, I'm Bav.";
 
 export const aboutContent = [
-  "I'm currently working as a software engineer at Sky, and have a Masters degree in Mechanical Engineering from Imperial College London. I aim to deliver intuitive, performant and accessible web applications. I want to solve complex problems, and craft innovative experiences that go above and beyond.",
+  "Currently a software engineer at Sky. Graduated from Imperial College London with a Masters degree in Mechanical Engineering. I aim to deliver intuitive, performant and accessible web applications. I want to solve complex problems, and craft innovative experiences that go above and beyond.",
   "Outside of code, I enjoy making art and music. I wish to bring elements of creativity and playfulness into my work, and build products that bring smiles to people's faces.",
 ];
 
@@ -141,20 +141,20 @@ export const experiences: Experience[] = [
 
 export const projects: Project[] = [
   {
+    name: "RAG Chatbot",
+    year: "2025",
+    description:
+      "A minimal Retrieval-Augmented Generation (RAG) system built with Node.js and TypeScript that allows you to chat with your markdown documents. Creates a local vector store from markdown files to generate a grounded data set, used to augment LLM queries.",
+    stack: ["TypeScript", "Node.js", "OpenAI API"],
+    link: "https://github.com/bav-07/rag-chatbot-progression-pack"
+  },
+  {
     name: "Financial Management API",
     year: "2025",
     description:
       "A full-stack API for managing income and expenses, featuring JWT authentication, MongoDB persistence, and savings calculations. Built to practice clean architecture, controller testing, and TypeScript best practices.",
     stack: ["TypeScript", "Node.js", "Express", "MongoDB", "JWT", "Mongoose"],
     link: "https://github.com/bav-07/expense-tracker-api"
-  },
-  {
-    name: "Kabutops Trumps",
-    year: "2023",
-    description:
-      "A Pokémon-themed Top Trumps game where users compare stats across cards to win rounds. Developed as a collaborative React project, focusing on state management and interactive UI.",
-    stack: ["JavaScript", "React", "CSS", "Java", "Spring Boot", "Tailwind"],
-    link: "https://github.com/bav-07/KabutopsTrumpsFrontEnd"
   },
   {
     name: "Movie Reviews",
